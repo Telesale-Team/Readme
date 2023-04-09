@@ -1,0 +1,38 @@
+{% extends 'backend/layout.html' %}
+
+
+{% block c01 %}
+
+
+<div class="row">
+    {% for team in teams %}
+    <div class="col-sm-3 col-md-6 col-lg-4">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-sm-3 col-md-6 col-lg-4">
+                        <img src="{{team.image.url}}" class="mx-auto d-block" width="150" height="150" alt="...">  
+                    </div>
+                    <div class="col-sm-9 col-md-6 col-lg-8">
+                      <p>ชื่อ : {{ team.user }}</p><hr>
+                      
+                      <p>อายุ : 39 ปี </p><hr>
+                      <p>position : {{ team.position }} </p>
+
+                    </div>
+                  </div>
+            </div>
+          </div>
+        <br>
+    </div>
+    {% endfor %}
+
+    
+    
+</div>
+
+
+
+{% endblock c01 %}

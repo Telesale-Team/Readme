@@ -1,0 +1,55 @@
+{% extends 'backend/layout.html' %}
+
+
+{% block c0 %}
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Finance</h1>      
+    <p>รายละเอียด เบิกถอนรายรับ รายจ่าย</p>
+  </div>
+</div>
+
+{% endblock c0 %}
+
+
+{% block c01%}
+{% load humanize %}
+<table class="table table-striped ">
+    
+    <thead class='bg-dark text-light'>
+      <tr>
+
+        <th> ภาพ </th>
+        <th> รายละเอียด </th>
+        <th> ยอดเงิน </th>
+        <th> ผู้รับเงิน </th>        
+        <th> ผู้จ่ายเงิน </th>
+        <th> วันที่ </th>        
+        <th> แก้ใข </th>
+        <th> สถานะ </th>
+
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for money in money %}
+      <tr>
+        <td>รูปภาพ</td>
+        
+        <td> {{money.details}} </td>
+        <td> {{money.money | intcomma}}</td>
+        <td> {{money.presive}} </td>        
+        <td> {{money.pgive}} </td>
+        <td> {{money.created_dat}} </td>
+        <td>แก้ใข</a></td>
+        <td><h6> <span class="badge badge-success">เรียบร้อย</span></h6></td>       
+
+
+      </tr>
+      {% endfor %}
+    </tbody>
+    
+</table>
+{% endblock c01%}
