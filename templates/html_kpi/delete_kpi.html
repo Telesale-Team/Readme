@@ -1,0 +1,11 @@
+{% extends 'base/layout.html'%}
+{% block title %} Login Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>รายงานผล</h1>
+{% for i in scores %}
+{{ i.team }}
+{% endfor%}
+{% endblock content %}

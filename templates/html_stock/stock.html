@@ -1,0 +1,36 @@
+{% extends 'base/layout.html' %}
+
+{% block title %} Stock Page {% endblock title%}
+
+{% block c0 %}
+<table class="table table-striped">
+    
+    <thead>
+      <tr>
+        <th>รูปภาพหลักฐานการเบิก</th>
+        <th>รายละเอียด</th>
+        <th>ซีเรียลนัมเบอร์</th>
+        <th>ผู้เบิก</th>        
+        <th>ผู้ให้เบิก</th>
+        <th>วันที่</th>
+        <th><i class='far fa-edit' style='font-size:20px'></i>แก้ใข</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>รูป</td>
+        <td> {{ item.details}} </td>
+        <td> {{item.serial}} </td>
+        <td> {{item.presive}} </td>
+        <td> {{item.pgive}} </td>
+        <td> {{item.created_dat}} </td>
+        <td>แก้ใข</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+    
+</table>
+{% endblock c0 %}

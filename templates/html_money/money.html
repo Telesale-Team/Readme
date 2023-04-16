@@ -1,0 +1,42 @@
+{% extends 'base/layout.html' %}
+
+
+{% block content %}
+
+
+
+{% load humanize %}
+<table class="table table-striped ">
+    
+    <thead class='bg-dark text-light'>
+      <tr>
+
+        <th> ภาพ </th>
+        <th> เรื่อง </th>
+        <th> ยอดเงิน </th>
+        <th> ผู้เบิก </th>        
+        <th> วันที่ </th>        
+        <th> แก้ใข </th>
+        <th> สถานะ </th>
+
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for money in view_money %}
+      <tr>
+        <td><img src="{{ money.image1.url}}"  width="50" height="50" alt="..."></td>        
+        <td> {{money.subject}} </td>
+        <td> {{money.money | intcomma}}</td>
+        <td> {{money.collector}} </td> 
+        <td> {{money.created_dat}} </td>
+        <td>แก้ใข</a></td>
+        <td><h6> <span class="badge badge-warning">รอการยืนยัน</span></h6></td>       
+
+
+      </tr>
+      {% endfor %}
+    </tbody>
+    
+</table>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'html_login/base.html'%}
+{% block title %} Logout Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-md-6 offset-md-3">
+			<div class="border bg-dark text-light p-3">
+				<h1> Logout Page </h1>
+
+
+				<p>ระบบบริการจัดการงานบุคคล Softkingdom Humanresource Managment</p>
+
+				<div class="alert alert-warning">
+					<strong>Success!</strong> Indicates a successful or positive action.
+				  </div>
+                <a href="/"><button class="btn btn-success">Login</button></a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

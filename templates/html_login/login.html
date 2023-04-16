@@ -1,0 +1,32 @@
+{% extends 'html_login/base.html'%}
+{% block title %} Login Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-md-5 offset-md-3">
+			<div class="border bg-dark text-light p-3">
+				<h1> <strong>Welcome to CHRM </strong></h1>
+				<div class="alert alert-success">
+					Software Humanresources Managment By Softkingdom
+				  </div>
+				<p class="bg-secondary ">  </p>
+				<hr>
+				<form action="" method="post">
+					{% csrf_token %}
+					{{ form |crispy }}
+					<hr>
+					
+					<hr>
+					<input type="submit" value="&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;" class="btn btn-success">
+					<a href="/register"><input class='btn btn-secondary' type="button" value="Register"></a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

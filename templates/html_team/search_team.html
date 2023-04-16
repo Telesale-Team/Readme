@@ -1,0 +1,11 @@
+{% extends 'base/layout.html'%}
+{% block title %} Search Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Search Team Page</h1>
+{% for i in scores %}
+{{ i.team }}
+{% endfor%}
+{% endblock content %}

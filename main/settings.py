@@ -45,7 +45,12 @@ INSTALLED_APPS = [
     'app_stock',
     'app_money',
     'app_custom',
-    'app_login'
+    'app_login',
+    'crispy_forms',
+    "crispy_bootstrap4",
+  
+   
+
     
 
     
@@ -113,6 +118,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -140,3 +150,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'dashboard'

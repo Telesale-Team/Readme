@@ -7,24 +7,26 @@ from django.utils import timezone
 # Create your views here.
 def dashboard (request):
     
-    money = MoneyFinance.objects.all()
+    view_money = ReceiptInvoice.objects.all()
+    
 
-    return render(request,'frontend/money.html',{'money':money})
+
+    return render(request,'html_money/money.html',{"view_money":view_money})
 
 
 def Add_money (request):
-    return render (request,'backend/add_money.html')
+    return render (request,'html_money/add_money.html')
 
 
 def Edit_money (request):
-    return render (request,'editfile/edit_money.html')
+    return render (request,'html_money/edit_money.html')
 
 def Update_money (request):
-    return render (request,'editfile/edit_money.html')
+    return render (request,'html_money/edit_money.html')
 
 def Delete_money (request):
-    return render (request,'deletefile/delete_money.html')
+    return render (request,'html_money/delete_money.html')
 
 
 def Search_money (request):
-    return render (request,'deletefile/delete_money.html')
+    return render (request,'html_money/search_money.html')

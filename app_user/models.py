@@ -9,7 +9,7 @@ class ProfileUser(models.Model):
     
     create = models.DateTimeField(auto_now_add=True,null=True,blank=True) #วันเริ่มงาน
     username = models.OneToOneField(User,on_delete=models.CASCADE) #Id Login System
-    id_user = models.IntegerField(default=1001,blank=True)	# รหัสพนักงาน
+    id_user = models.IntegerField(default=0000,blank=True)	# รหัสพนักงาน
     nickname = models.CharField(max_length=20,blank=True)	# ชื่อเล่น
     team = models.CharField(max_length = 100,default='member') #สังกัดทีม
     image = models.ImageField(upload_to='image_profile',null=True,blank=True,default='default.png') #รูปถ่าย
@@ -31,3 +31,5 @@ class ProfileUser(models.Model):
     
     def __str__ (self):
         return str(self.username)
+    
+    

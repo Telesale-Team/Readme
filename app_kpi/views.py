@@ -7,29 +7,13 @@ from django.utils import timezone
 
 
 # Create your views here.
-def index(request):
 
-    scores = Kpi.objects.all()
-    
-    current_datetime = timezone.now()    
-    date = current_datetime.strftime('%d-%m-%Y')
-    time = current_datetime.strftime('%H:%M:%S')
-    
-   
+def Dashboard (request): 
+    return render (request,'html_kpi/dashboard.html')  
 
-    return redirect('/login')
-
-
-def Dashboard (request):  
-
-    return render (request,'frontend/dashboard.html')
 
 
 def Add_dashboard (request):  
 
-    return render (request,'backend/add_dashboard.html')
+    return render (request,'html_kpi/add_dashboard.html')
 
-
-def Add_money (request):
-    
-    return render (request,'backend/add_money.html')

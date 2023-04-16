@@ -11,8 +11,8 @@ from app_money.models import *
 # Create your views here.
 def dashboard (request):
     items = Stock.objects.all()
-    return render(request,'frontend/stock.html',{"items":items})
+    return render(request,'html_stock/stock.html',{"items":items})
 
     
 def Add_stock(request):     
-     return render (request,'backend/add_Stock.html')
+     return render (request,'html_stock/add_Stock.html')

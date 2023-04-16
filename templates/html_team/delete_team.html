@@ -1,0 +1,11 @@
+{% extends 'base/layout.html'%}
+{% block title %} Delete Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>Delete Team Page</h1>
+{% for i in scores %}
+{{ i.team }}
+{% endfor%}
+{% endblock content %}
