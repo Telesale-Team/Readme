@@ -1,65 +1,98 @@
 {% extends 'base/layout.html' %}
 
+
 {% block content %}
 
+<form method="POST">
+	{% csrf_token %}
+
+{% for user in user %}
+	<div class="row mt-5">
+
+		<div class="col-md-4">
+			<div class="container">
+				<h2>Rounded Corners</h2>
+				<p>The .rounded class adds rounded corners to an image:</p>            
+				<img src="{{ user.image.url}}" class="rounded" alt="Cinque Terre" width="400" height="400"> 
+			</div>
+
+		</div>
+
+		<div class="col-md-4">
+			<div class="container" >
+
+			
+					<div class="form-group">
+						<label for="id_user">รหัสพนักงาน</label>
+						<input type="text" class="form-control" id="id_user" placeholder="{{user.id_user}}">
+					</div>
+			
+					<div class="form-group">
+						<label for="username">ชื่อจริง</label>
+						<input type="text" class="form-control" id="username" placeholder="{{ user.username.first_name }}">
+					</div>
+
+					<div class="form-group">
+						<label for="lastname">นามสกุล</label>
+						<input type="text" class="form-control" id="lastname" placeholder="{{ user.username.last_name }}">
+					</div>
+
+					<div class="form-group">
+						<label for="nickname">ชื่อเล่น</label>
+						<input type="text" class="form-control" id="nickname" placeholder="{{ user.nickname }}">
+					</div>
+
+					<div class="form-group">
+						<label for="email">อีเมลล์</label>
+						<input type="email" class="form-control" id="email" placeholder="{{ user.username.email }}">
+					</div>
+
+					<div class="form-group">
+						<label for="address">ที่อยู่</label>
+						<input type="text" class="form-control" id="address" placeholder="{{ user.address }}">
+					</div>
 
 
- 
-{% for profile in user %}
-<div class="card bg-dark text-white">
-    <div class="card-body">
+			</div>
+		</div>
 
-        <div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="num_phone">เบอร์โทรศัพท์</label>
+				<input type="tel" class="form-control" id="num_phone" placeholder="{{ user.num_phone }}">
+			</div>
 
-            <div class="col-sm-3 col-md-6 col-lg-3">
-                        <img src="{{profile.image.url}}" class="mx-auto d-block" width="150" height="150" alt="..."><hr>
-                        <p>ชื่อ : {{ profile.user }}</p> <hr>
-                          
-            </div>
+			<div class="form-group">
+				<label for="position">position</label>
+				<input type="text" class="form-control" id="position" placeholder="{{ user.position}}position">
+			</div>
 
-            <div class="col-sm-9 col-md-6 col-lg-2">               
-                      
-                <p>position : {{ profile.position }} </p>
+			<div class="form-group">
+				<label for="worked">ประวัติการทำงาน</label>
+				<input type="textextarea" class="form-control" id="worked" placeholder="{{user.worked}}">
+			</div>
 
-            </div>
+			<div class="form-group">
+				<label for="worked">ประวัติการทำงาน:</label>
+				<textarea class="form-control" rows="5" id="worked"></textarea>
+			</div>
 
-
-            <div class="col-sm-9 col-md-6 col-lg-2">
-                <p>ชื่อ : {{ profile.user }}</p><hr>
-                        
-                <p>รหัสประจำตัว : {{ profile.id_user}}</p><hr>
-                 <p>position : {{ profile.position }} </p>
-  
-            </div>
-
-            <div class="col-sm-9 col-md-6 col-lg-2">
-                <p>ชื่อ : {{ profile.user }}</p><hr>                        
-                <p>รหัสประจำตัว : {{ profile.id_user}}</p><hr>
-                <p>position : {{ profile.position }} </p>
-  
-            </div>
-
-            <div class="col-sm-9 col-md-6 col-lg-2">
-                <p>ชื่อ : {{ profile.user }}</p><hr>                        
-                <p>รหัสประจำตัว : {{ profile.id_user}}</p><hr>
-                <p>position : {{ profile.position }} </p>
-  
-            </div>
-
-            <div class="col-sm-9 col-md-6 col-lg-1">
-                <i class='far fa-edit' style='font-size:15px'>แก้ใข</i>
-  
-            </div>
-
-        </div>
-    </div>
-/div>
-        <br>
+			<div class="form-group">
+				<label for="talen">ความสามารถพิเศษ:</label>
+				<textarea class="form-control" rows="5" id="talen"></textarea>
+			</div>
+		</div>
+		
+	</div>
 {% endfor %}
-    
-    
+
+</form>
 
 
 
 
-{% endblock content%}
+
+{% endblock content %}
+
+
+

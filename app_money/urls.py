@@ -11,7 +11,7 @@ urlpatterns = [
     path('update_money/',Update_money),
     path('delete_money/',Delete_money),
     path('search_money/',Search_money),
-    path('report_money/',Search_money),
+    path('report_money/',Search_money,name="report_money"),
     
     
 
