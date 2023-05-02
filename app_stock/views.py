@@ -16,3 +16,4 @@ def dashboard (request):
     
 def Add_stock(request):     
      return render (request,'html_stock/add_Stock.html')
+ 

@@ -9,20 +9,19 @@
 	<div class="row mt-5">
 		<div class="col-md-5 offset-md-3">
 			<div class="border bg-dark text-light p-3">
-				<h1> <strong>Welcome to CHRM </strong></h1>
+				<h1 class="text-center"> <strong>Welcome to CHRM </strong></h1><br>
 				<div class="alert alert-success">
-					Software Humanresources Managment By Softkingdom
+					Human Resources Managment By Softkingdom
 				  </div>
 				<p class="bg-secondary ">  </p>
-				<hr>
+				<br>
 				<form action="" method="post">
 					{% csrf_token %}
 					{{ form |crispy }}
-					<hr>
-					
-					<hr>
-					<input type="submit" value="&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;" class="btn btn-success">
-					<a href="/register"><input class='btn btn-secondary' type="button" value="Register"></a>
+
+					<br>
+					<input type="submit" value="&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;" class="btn btn-success btn-block">
+
 				</form>
 			</div>
 		</div>

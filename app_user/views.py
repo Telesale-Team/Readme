@@ -1,13 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from app_user.models import *
+from app_login.forms import *
+from django.contrib.auth.forms import UserCreationForm
+
 
 # Create your views here.
 def Dashboard (request):
 
-    users = ProfileUser.objects.all()
+    users = User.objects.all().order_by('-username')
+    quatity = list(users)
+    
+    CreateUser
+    if request.method == "POST":
+        form = CreateUser(request.POST)
+        if form.is_valid():
+            form.save()
+            redirect("user/")
+    else:
+        form = CreateUser()
+        redirect("user/")
+        
+            
+    context = {
+        "quatity":len(quatity),
+        "users":users,
+        "form": form
 
-    return render (request,'html_user/dashboard_user.html',{'users':users})
+
+    }
+    
+    return render (request,'html_user/dashboard_user.html',context)
 
 
 def Add_user (request):
@@ -15,10 +38,10 @@ def Add_user (request):
     return render(request,'html_user/add_user.html')
 
 
-def Profile (request,id_user ):
+def Profile (request,email ):
     
 
-    user = ProfileUser.objects.filter(id_user = id_user)
+    user = User.objects.filter( email = email )
     
     return render(request,'html_user/profile_user.html',{'user':user})
 

@@ -4,12 +4,46 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-class Team (models.Model):
-    team = models.CharField(max_length=100,unique=True)
-    image = models.ImageField(upload_to='image_team',null=True,blank=True,default='default.png') #
-    description = models.TextField(null=True,blank=True)
-    created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
+
+
+
+#ตัวอย่างการใช้งาน ManytoManyField
+class Person(models.Model):
+    name = models.CharField(max_length=128)
+    
+    
+    class Meta:
+        ordering = ["id"]
+        verbose_name_plural = "Person"
+        verbose_name = "Group & Team"
 
     def __str__(self):
-        return self.team
+        return self.name
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(Person, through="Membership")
+
+    def __str__(self):
+        return self.name
+
+
+class Membership(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    date_joined = models.DateField()
+    invite_reason = models.CharField(max_length=64,null=True)
+    
+    
+    class Meta:
+        ordering = ["id"]
+        db_table = "Member"
+        verbose_name_plural = "Membership"
+        verbose_name = "Group & Team"
+        
+        
+    def __str__(self):
+        return f'{self.group} สมาชิก {self.person}'
+    
     
