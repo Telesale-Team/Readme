@@ -5,53 +5,124 @@
 
 {% block content%}
 <div class="container-fluid">
-	<br>
 	<div class="row">
-		<div class="col-md-4" >
-			<div class="border p-3">
-				<h1 class="text-center"> Member Register </h1>
-				<hr>
-				<form action="" method="post">
-					{% csrf_token %}
-					{{ form |crispy }}
-					<hr>
-					<input type="submit" value="ลงทะเบียน" class="btn btn-success">
+		<div class="col">
+			<div class="jumbotron jumbotron-fluid bg-dark">
+				<div class="container-fluid">
 					
-				</form>
-			</div>
-		</div>
-
-		<div class="col-md-8" >
-			
-			<table class="table table-striped ">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="container-fluid ">
+								<div class="row" style="center">
+									<div class="col-md-6 mb-3">
+										<a href="/register"><input name="create_id" id="create_id" class="btn btn-success btn-block" type="button" value="สร้างรหัสใช้งาน"></a>
+									</div>
+						
+									<div class="col-md-6 mb-3">
+										<a href="/user/add_team"><input name="thaiban" id="thaiban" class="btn btn-primary btn-block" type="button" value="สร้างทีม"></a>
+									</div>
+						
+									<div class="col-md-6 mb-3">
+										<a href="/user/add_position"><input name="football" id="football" class="btn btn-warning btn-block" type="button" value="สร้างตำแหน่งงาน"></a>
+									</div>
+						
+									
+						
+									<div class="col-md-6 mb-3">
+										<a href="/user/add_skill"><input name="muay" id="muay" class="btn btn-info btn-block" type="button" value="สร้างสกิล"></a>
+										
+									</div>
+						
+								   
+						
+								</div>
+								
+								
+							</div>
+							
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="card border-success">
 		
-				<thead class='bg-dark text-light'>
-					<tr>
-						<th> รหัส </th>
-						<th> อีเมลล์ </th>
-						<th> ชื่อ-สกุล </th>
-						<th> วันเริ่มงาน </th>
-						<th> สถานะ </th>
-
-					</tr>
-				</thead>
-				
-				<tbody>
-					{% for person in users %}
-					<tr>
-						<td> {{ person.username }} </td>
-						<td>{{ person.email}}</td>
-						<td>{{ person.first_name}} {{ person.last_name}}</td>
-						<td>{{ person.date_joined}} </td>
-						<td><a href="profile/{{person.email}}">อัพเดด</a></td>
-	
-					 </tr>
-					{% endfor %}
-				</tbody>
-			</table>
+									  <div class="card-body text-center">
+										<i class="bi bi-person-circle"></i>
+										<h4 class="card-title text-center">{{ total }}</h4>
+										<p class="card-text">พนักงานทั้งหมด </p>
+									  </div>
+									</div>
+								</div>
+		
+								<div class="col-md-4">
+									<div class="card border-success">
+		
+									  <div class="card-body text-center">
+										<i class="bi bi-person-circle"></i>
+										<h4 class="card-title text-center">{{ profile_unit }}</h4>
+										<p class="card-text">รหัสสำหรับลงทะเบียน</p>
+									  </div>
+									</div>
+								</div>
+		
+								<div class="col-md-4">
+									<div class="card border-success">
+		
+									  <div class="card-body text-center">
+										<i class="bi bi-person-circle"></i>
+										<h4 class="card-title text-center"></h4>
+										<p class="card-text">รอลงทะเบียน</p>
+									  </div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
 		</div>
+	</div>	
+		<div class="row ">
+			{% for user in profile %}
+			  <div class="col-md-4">
+					<div class="card p-3">
+		
+						<div class="row">
+		
+							<div class="col-md-5">
+								<img class="img-fluid" src="{{ user.image.url}}" width="150" height="100" alt="Card image">
+							</div>
+		
+							<div class="col-md-7">
+								<h4 class="card-title">{{ user.username}}</h4>
+								<p class="card-text">{{ user.first_name}} {{ user.nickname }}</p>
+								  <p class="card-text">{{ user.position }}</p>
+								  <a href="profile/{{ user.id }}" class="btn btn-success btn-block">See Profile</a>						
+							</div>
+		
+						</div>
+						
+						  
+					</div>
+			  </div>
+			{% endfor %}  
+		</div>
+
 	</div>
+
 	
+
+	
+
+	
+	
+
+	
+
+
 </div>
 
 {% endblock content %}

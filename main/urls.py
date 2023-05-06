@@ -29,7 +29,7 @@ urlpatterns = [
 	path('user/', include('app_user.urls')),
 	path('stock/', include('app_stock.urls')),
 	path('money/', include('app_money.urls')),
-	path('custom/', include('app_custom.urls')),
+	path('customer/', include('app_custom.urls')),
 	path('register/',appregister),
 	path('', auth_views.LoginView.as_view(template_name='html_login/login.html')),
 	path('logout/', auth_views.LogoutView.as_view(template_name='html_login/logout.html')),

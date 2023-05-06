@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Category (models.Model):
     
-    name = models.CharField(max_length=60)
+    name = models.CharField('ชื่อหมวดหมู่',max_length=60)
     class Meta:
 
         verbose_name_plural = "Create Category"
@@ -19,10 +19,10 @@ class Category (models.Model):
     
 class Item (models.Model):
     
-    name = models.CharField('ชื่อไอเท็ม',max_length=60)
+    name = models.CharField('ชื่อสินค้า',max_length=60)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True) 
-    serial = models.CharField(max_length=60)
-    qutity = models.PositiveIntegerField(null=True)
+    serial = models.CharField("ซีเรียล",max_length=60)
+    qutity = models.PositiveIntegerField('จำนวน',null=True)
     
     class Meta:
         db_table = "Item"
@@ -36,7 +36,7 @@ class Item (models.Model):
 class Stock (models.Model):
     
     item = models.ForeignKey(Item,on_delete=models.CASCADE,null=True)   
-    quatity = models.PositiveIntegerField(default=1)
+    quatity = models.PositiveIntegerField(default=0)
     user_account = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     date = models.DateField()
     

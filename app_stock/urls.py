@@ -4,6 +4,8 @@ from .views import *
 
 
 urlpatterns = [
-    path('',dashboard),
-    path('add_stock',Add_stock,name='addstock'),
+    path('',dashboard,name='stock'),
+    path('add_stock',Add_stock),
+    path('add_Category/',Add_Category),
+    path('add_Item/',Add_Item),
 ]

@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'crispy_forms',
+    "crispy_bootstrap4",
     'app_kpi',
     'app_team',
     'app_user',
@@ -46,8 +48,7 @@ INSTALLED_APPS = [
     'app_money',
     'app_custom',
     'app_login',
-    'crispy_forms',
-    "crispy_bootstrap4",
+    
   
    
 

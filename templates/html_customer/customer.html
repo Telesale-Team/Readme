@@ -3,7 +3,84 @@
 {% block content%}
 {% load humanize %}
 <div class="row">
-
+  <div class="col">
+    <div class="jumbotron jumbotron-fluid bg-dark">
+      <div class="container-fluid">
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="container-fluid ">
+              <div class="row" style="center">
+                <div class="col-md-6 mb-3">
+                  <a href="/register"><input name="create_id" id="create_id" class="btn btn-success btn-block" type="button" value="สร้างรหัสใช้งาน"></a>
+                </div>
+          
+                <div class="col-md-6 mb-3">
+                  <a href="/user/add_team"><input name="thaiban" id="thaiban" class="btn btn-primary btn-block" type="button" value="สร้างทีม"></a>
+                </div>
+          
+                <div class="col-md-6 mb-3">
+                  <a href="/user/add_position"><input name="football" id="football" class="btn btn-warning btn-block" type="button" value="สร้างตำแหน่งงาน"></a>
+                </div>
+          
+                
+          
+                <div class="col-md-6 mb-3">
+                  <a href="/user/add_skill"><input name="muay" id="muay" class="btn btn-info btn-block" type="button" value="สร้างสกิล"></a>
+                  
+                </div>
+          
+                 
+          
+              </div>
+              
+              
+            </div>
+            
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card border-success">
+  
+                  <div class="card-body text-center">
+                  <i class="bi bi-person-circle"></i>
+                  <h4 class="card-title text-center">{{ total }}</h4>
+                  <p class="card-text">พนักงานทั้งหมด </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-md-4">
+                <div class="card border-success">
+  
+                  <div class="card-body text-center">
+                  <i class="bi bi-person-circle"></i>
+                  <h4 class="card-title text-center">{{ profile_unit }}</h4>
+                  <p class="card-text">รหัสสำหรับลงทะเบียน</p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-md-4">
+                <div class="card border-success">
+  
+                  <div class="card-body text-center">
+                  <i class="bi bi-person-circle"></i>
+                  <h4 class="card-title text-center"></h4>
+                  <p class="card-text">รอลงทะเบียน</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
 
   <div class="col-sm-12" >
     
@@ -11,38 +88,44 @@
   
       <thead class='bg-dark text-light'>
         <tr>
-          <th> ชื่อลูกค้า </th>
-          <th> เบอร์โทรลูกค้า </th>
-          <th> ไอดีไลน์ </th>
-          <th> ความสนใจ </th>
+          <th>พนักงาน </th>
+          <th>ชื่อลูกค้า </th>
+          <th> ซื้อ/ไม่ซื้อ</th>
           <th> จำนวนครั้งการซื้อ </th>
           <th> อายุ </th>                       
           <th> เพศ  </th>
+          <th> เพศ  </th>
           <th> สถานะ  </th>
-          <th> ตรวจเช็ค  </th>            
+          <th> อัพเดท  </th>            
 
         </tr>
       </thead>
       
       <tbody>
-        
+        {%for customer in thaiban %}
         <tr>
-          <td> . </td>            
-          <td> . </td>
-          <td> .</td>
-          <td> . </td>
-          <th> . </th>
-          <th> . </th>
-          <th> . </th>
-          <th> <span class="badge badge-success">Success</span> </th>
-          <th> <i class="material-icons" style="font-size:36px">visibility</i> </th>             
-
+          
+          <td> {{ customer.username}} </td>            
+          <td> {{ customer.user_customer}} </td>
+          <th> {{ customer.user_buy}} </th>
+          <td> {{ customer.user_password}}</td>
+          <td> {{ customer.user_telephone}} </td>
+          
+          <th> {{ customer.user_qutity}} </th>
+          <th> {{ customer.page_name}}  </th>
+          <th> {{ customer.detail}}  </th>
+          <th> <a href="/customer/profile_customer/{{ customer.id }}"><i class='fas fa-layer-group' style='font-size:24px'></i></a> </th>             
+          
 
          </tr>
+         {% endfor %}
 
       </tbody>
       
-  </table>
+      
+    </table>
     
   </div>
+
+</div>
 {% endblock content%}

@@ -1,96 +1,43 @@
 {% extends 'base/layout.html' %}
+{% block title%} Profile User {% endblock title %}
+{% load crispy_forms_tags %}
 
 
 {% block content %}
 
-<form method="POST">
-	{% csrf_token %}
 
-{% for user in user %}
-	<div class="row mt-5">
-
-		<div class="col-md-4">
-			<div class="container">
-				<h2>Rounded Corners</h2>
-				<p>The .rounded class adds rounded corners to an image:</p>            
-				<img src="{{ user.image.url}}" class="rounded" alt="Cinque Terre" width="400" height="400"> 
+<div class="container-fluid">
+	<div class="row ">
+		<div class="col-md-3">
+			<div class="card border">
+			  <img class="card-img-top" src="{{ user.image.url}}" alt="">
+			  <div class="card-body">
+				<h4 class="card-title">{{ user.nickname}}</h4>
+				<p class="card-text">{{ user.position }}</p>
+			  </div>
 			</div>
-
-		</div>
-
-		<div class="col-md-4">
-			<div class="container" >
-
 			
-					<div class="form-group">
-						<label for="id_user">รหัสพนักงาน</label>
-						<input type="text" class="form-control" id="id_user" placeholder="{{user.username}}">
-					</div>
-			
-					<div class="form-group">
-						<label for="username">ชื่อจริง</label>
-						<input type="text" class="form-control" id="username" placeholder="{{ user.first_name }}">
-					</div>
+		</div>
+		<div class="col-md-9">
+			<div class="border p-3">
 
-					<div class="form-group">
-						<label for="lastname">นามสกุล</label>
-						<input type="text" class="form-control" id="lastname" placeholder="{{ user.username.last_name }}">
+				<div class="card bg-dark text-light">
+					<div class="card-body text-center">
+					  <h4 class="card-text"> อัพเดท/แก้ใข ข้อมูลพนักงาน </h4>
 					</div>
-
-					<div class="form-group">
-						<label for="nickname">ชื่อเล่น</label>
-						<input type="text" class="form-control" id="nickname" placeholder="{{ user.nickname }}">
-					</div>
-
-					<div class="form-group">
-						<label for="email">อีเมลล์</label>
-						<input type="email" class="form-control" id="email" placeholder="{{ user.username.email }}">
-					</div>
-
-					<div class="form-group">
-						<label for="address">ที่อยู่</label>
-						<input type="text" class="form-control" id="address" placeholder="{{ user.address }}">
-					</div>
-
-
+				</div>
+				<hr>
+				<form action="" method="post">
+					{% csrf_token %}
+					{{ form |crispy }}
+					<hr>
+					<input type="submit" value="Update" class="btn btn-warning btn-block ">
+					
+				</form>
 			</div>
 		</div>
-
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="num_phone">เบอร์โทรศัพท์</label>
-				<input type="tel" class="form-control" id="num_phone" placeholder="{{ user.num_phone }}">
-			</div>
-
-			<div class="form-group">
-				<label for="position">position</label>
-				<input type="text" class="form-control" id="position" placeholder="{{ user.position}}position">
-			</div>
-
-			<div class="form-group">
-				<label for="worked">ประวัติการทำงาน</label>
-				<input type="textextarea" class="form-control" id="worked" placeholder="{{user.worked}}">
-			</div>
-
-			<div class="form-group">
-				<label for="worked">ประวัติการทำงาน:</label>
-				<textarea class="form-control" rows="5" id="worked"></textarea>
-			</div>
-
-			<div class="form-group">
-				<label for="talen">ความสามารถพิเศษ:</label>
-				<textarea class="form-control" rows="5" id="talen"></textarea>
-			</div>
-		</div>
-		
 	</div>
-{% endfor %}
-
-</form>
-
-
-
-
+</div>
 
 {% endblock content %}
 

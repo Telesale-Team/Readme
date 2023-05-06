@@ -7,11 +7,15 @@ urlpatterns = [
     
     path('',Dashboard,name='profileuser'),
     path('add_user/',Add_user,name='adduser'),
-    path('update_user/',Update_user,name='updateuser'),
-    path('delete_user/',Delete_user,name='deleteuser'),
-    path('edit_user/',Edit_user,name='edituser'),
-    path('report_user/',Report_user,name='reportuser'),
-    path('profile/<str:email>',Profile,name='profile'),
+    path('add_position/',Add_Position),
+    path('add_team/',Add_Team),
+    path('add_skill/',Add_Skill),
+   
+    path('delete_user/',Delete_user),
+    path('edit_user/',Edit_user),
+    path('report_user/',Report_user),
+    path('profile/<int:id>',Profile),
+     path('profile_update/<int:id>',Update_user),
     
     
     

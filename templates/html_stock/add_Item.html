@@ -1,0 +1,29 @@
+{% extends 'html_login/base.html'%}
+{% block title %} Add Category Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card border">
+              <img class="card-img-top" src="holder.js/100px180/" alt="">
+              <div class="card-body">
+                <h4 class="card-title">เพิ่มสต๊อก</h4>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form |crispy }}
+                    <input type="submit" value="+ เพิ่ม" class="btn btn-success btn-block ">
+                </form>
+                
+              </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock%}
