@@ -1,6 +1,14 @@
 from django import forms
 from .models import *
+from django.contrib.auth.forms import UserCreationForm
 
+class UserForms (UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields =["username"]
+        
 class ProfileForm(forms.ModelForm):
 
     class Meta:
@@ -28,3 +36,4 @@ class IdForm(forms.ModelForm):
 
         model = Positions
         fields = '__all__'
+        

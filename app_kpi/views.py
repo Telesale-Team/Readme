@@ -22,6 +22,7 @@ def Dashboards (request):
     return render (request,'html_kpi/dashboard.html',context)  
 
 
+
 @login_required(login_url="/")
 def Add_dashboard (request):
 	
@@ -32,18 +33,16 @@ def Add_dashboard (request):
 			return redirect("/user")
 	else:
 		form = KipForm()
-
 		
-			
 	context = {
 
 		"form": form
-
 
 	}
 	 
 	return render (request,'html_kpi/add_dashboard.html',context)   
 
+ 
  
 @login_required(login_url="/")
 
@@ -56,9 +55,7 @@ def Thaibans (request):
             return redirect("/dashboard/thaiban")
     else:
         form = ThaibanForm()
-
         
-            
     context = {
 
         "form": form,

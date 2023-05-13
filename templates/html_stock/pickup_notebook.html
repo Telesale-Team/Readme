@@ -1,0 +1,41 @@
+{% extends 'base/layout.html'%}
+{% block title %} Pickup Notebook Page {% endblock title%}
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+<div class="container-fluid">
+	
+	<div class="row ">
+		<div class="col-md-4">
+			
+			<div class="card border">
+			  <img class="card-img-top" src="{{ items.image.url }}" >
+			  <div class="card-body">
+				<h4 class="card-title text-center">{{ items.name}}</h4>
+			  </div>
+			</div>	
+		</div>
+		<div class="col-md-8">
+			<div class="border p-3">
+
+				<div class="card bg-dark text-light">
+					<div class="card-body text-center">
+					  <h4 class="card-text"> Notebook Profile </h4>
+					</div>
+				</div>
+				<hr>
+				<form action="" method="post">
+					{% csrf_token %}
+                    {{ form|crispy }}
+
+					<hr>
+					<input type="submit" value="Update" class="btn btn-warning btn-block ">
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}

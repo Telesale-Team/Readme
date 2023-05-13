@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class Positions (models.Model):
     name = models.CharField('ตำแหน่งงาน',max_length=255,unique=True)
+    slug = models.SlugField(null=True,unique=True)
     
     class Meta:
         ordering = ["-id"]
@@ -47,7 +48,7 @@ class ProfileUser(models.Model):
     username = models.OneToOneField(User,on_delete=models.CASCADE) # ชื่อพนักงาน  
     nickname = models.CharField(max_length=20,blank=True)	# ชื่อเล่นพนักงาน
     address = models.CharField(max_length=255,blank=True,null=True)# ที่อยู่ 
-    phone = models.CharField(max_length=10,unique=True,blank=True) #  เบอร์โทรศัพท์
+    phone = models.CharField(max_length=10,blank=True) #  เบอร์โทรศัพท์
     position = models.ForeignKey(Positions,on_delete=models.CASCADE,blank=True,null=True)
     team = models.ForeignKey(Team,on_delete=models.CASCADE,blank=True,null=True)
     MedalType = models.TextChoices("MedalType", "ต่ำกว่า1ปี 1ปี 2ปี มากกว่า3ปี")
@@ -55,6 +56,7 @@ class ProfileUser(models.Model):
     working_skill = models.ForeignKey(Skill,on_delete=models.CASCADE,blank=True,null=True)
     worked_date = models.DateField(blank=True,null=True)
     image = models.ImageField(upload_to='image_profile',null=True,blank=True,default='default.png') #รูปถ่าย
+    image_check = models.BooleanField(default=False)
 
 
     

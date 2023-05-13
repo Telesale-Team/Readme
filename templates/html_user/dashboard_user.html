@@ -1,128 +1,107 @@
 {% extends 'base/layout.html' %}
-
 {% block title %} Dashboard User {% endblock title %}
-{% load crispy_forms_tags %}
 
 {% block content%}
 <div class="container-fluid">
-	<div class="row">
-		<div class="col">
-			<div class="jumbotron jumbotron-fluid bg-dark">
-				<div class="container-fluid">
-					
-					<div class="row">
-						<div class="col-md-6">
-							<div class="container-fluid ">
-								<div class="row" style="center">
-									<div class="col-md-6 mb-3">
-										<a href="/register"><input name="create_id" id="create_id" class="btn btn-success btn-block" type="button" value="สร้างรหัสใช้งาน"></a>
-									</div>
-						
-									<div class="col-md-6 mb-3">
-										<a href="/user/add_team"><input name="thaiban" id="thaiban" class="btn btn-primary btn-block" type="button" value="สร้างทีม"></a>
-									</div>
-						
-									<div class="col-md-6 mb-3">
-										<a href="/user/add_position"><input name="football" id="football" class="btn btn-warning btn-block" type="button" value="สร้างตำแหน่งงาน"></a>
-									</div>
-						
-									
-						
-									<div class="col-md-6 mb-3">
-										<a href="/user/add_skill"><input name="muay" id="muay" class="btn btn-info btn-block" type="button" value="สร้างสกิล"></a>
-										
-									</div>
-						
-								   
-						
-								</div>
-								
-								
-							</div>
-							
-						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="card border-success">
-		
-									  <div class="card-body text-center">
-										<i class="bi bi-person-circle"></i>
-										<h4 class="card-title text-center">{{ total }}</h4>
-										<p class="card-text">พนักงานทั้งหมด </p>
-									  </div>
-									</div>
-								</div>
-		
-								<div class="col-md-4">
-									<div class="card border-success">
-		
-									  <div class="card-body text-center">
-										<i class="bi bi-person-circle"></i>
-										<h4 class="card-title text-center">{{ profile_unit }}</h4>
-										<p class="card-text">รหัสสำหรับลงทะเบียน</p>
-									  </div>
-									</div>
-								</div>
-		
-								<div class="col-md-4">
-									<div class="card border-success">
-		
-									  <div class="card-body text-center">
-										<i class="bi bi-person-circle"></i>
-										<h4 class="card-title text-center"></h4>
-										<p class="card-text">รอลงทะเบียน</p>
-									  </div>
-									</div>
-								</div>
-							</div>
-		
-						</div>
+	<div class="row bg-dark">
+		<div class="col-md-2 p-2">
+			<a href="/user/">
+				<div class="card border-success bg-success text-light">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+						<p class="card-text">ผู้ใช้งานระบบทั้งหมด</p>
 					</div>
 				</div>
+			</a>
+		  
+		</div>
+
+	
+		<div class="col-md-2 p-2">
+			<a href="/register">
+				<div class="card border-success bg-info text-light">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+						<p class="card-text">สร้างรหัสใช้งาน</p>
+					</div>
+				</div>
+			</a>
+		  
+		</div>
+	
+		
+		<div class="col-md-2 p-2">
+		  <a href="{%url 'add-position'%}">
+			<div class="card border-success bg-success text-light">
+				<div class="card-body">
+					<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+					<p class="card-text">เพิ่มแผนก</p>
+				</div>
 			</div>
-			
+			</a>
+		</div>
+	
+		<div class="col-md-2 p-2">
+			<a href="{%url 'add-skill'%}">
+				<div class="card border-success bg-warning text-light">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+						<p class="card-text">เพิ่มทักษะการทำงาน</p>
+					</div>
+				</div>
+			</a>
 			
 		</div>
-	</div>	
-		<div class="row ">
-			{% for user in profile %}
-			  <div class="col-md-4">
-					<div class="card p-3">
-		
-						<div class="row">
-		
-							<div class="col-md-5">
-								<img class="img-fluid" src="{{ user.image.url}}" width="150" height="100" alt="Card image">
-							</div>
-		
-							<div class="col-md-7">
-								<h4 class="card-title">{{ user.username}}</h4>
-								<p class="card-text">{{ user.first_name}} {{ user.nickname }}</p>
-								  <p class="card-text">{{ user.position }}</p>
-								  <a href="profile/{{ user.id }}" class="btn btn-success btn-block">See Profile</a>						
-							</div>
-		
-						</div>
-						
-						  
+
+	
+		<div class="col-md-2 p-2">
+			<a href="{% url 'add-team' %}">
+				<div class="card border-success bg-primary text-light">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+						<p class="card-text">เพิ่มทีม</p>
 					</div>
-			  </div>
-			{% endfor %}  
+				</div>
+			  </a>
+			
+		</div>
+	
+		<div class="col-md-2 p-2">
+			<a href='/user'>
+			<div class="card border-success bg-secondary text-light">
+				<div class="card-body">
+					<h4 class="card-title "><i class="fa-solid fa-users"></i> {{ total }} คน</h4>
+					<p class="card-text">รายงานพนักงาน</p>
+				</div>
+			</div>
+			</a>
+		  
 		</div>
 
 	</div>
 
+
+	<div class="row ">
+		{% for user in profile %}
+		  <div class="col-md-4 ">
+				<div class="card mt-3 p-3 bg-dark text-light">
+					<div class="row">
 	
+						<div class="col-md-5">
+							<img class="img-fluid" src="{{ user.image.url}}" width="150" height="100" alt="Card image">
+						</div>
 
+						<div class="col-md-5">
+							<h4 class="card-title">ID : {{ user.username}}</h4>
+							<p class="card-text">{{ user.first_name}} {{ user.nickname }}</p>
+							  <p class="card-text">ตำแหน่ง :{{ user.position }}</p>
+							  <a href="{% url 'profile-update' user.id %}" class="btn btn-success btn-block">โปรไฟล์ผู้ใช้</a>					
+						</div>
 	
+					</div>
 
-	
-	
-
-	
-
-
-</div>
-
+				</div>
+		  </div>
+		{% endfor %}  
+	</div>
 {% endblock content %}

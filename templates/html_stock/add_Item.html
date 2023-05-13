@@ -1,29 +1,58 @@
-{% extends 'html_login/base.html'%}
-{% block title %} Add Category Page {% endblock title%}
+{% extends 'base/layout.html' %}
 {% load crispy_forms_tags %}
+{% block title %} Stock Page {% endblock title%}
 
 {% block content%}
+<div class="container-fluid">
+	{% include 'html_stock/base_stock.html'%}
+	<div class="row">
+		<div class="col-sm-4 p-3">
+			<div class="card border p-3">
+				<form method="POST">
+					{% csrf_token %}
 
+					{{ form | crispy}}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="card border">
-              <img class="card-img-top" src="holder.js/100px180/" alt="">
-              <div class="card-body">
-                <h4 class="card-title">เพิ่มสต๊อก</h4>
-
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{ form |crispy }}
-                    <input type="submit" value="+ เพิ่ม" class="btn btn-success btn-block ">
-                </form>
-                
-              </div>
-            </div>
-            
-        </div>
-    </div>
+					<input type="submit" value="ลงทะเบียน" class="btn btn-success btn-block ">
+				</form>
+			</div>
+			
+		</div>
+		<div class="col-sm-8 p-3">
+			<div class="card border">
+				<table class="table table-striped">      
+					<thead class="bg-dark text-light">
+						<tr>
+							<th>รูปภาพหลักฐานการเบิก</th>
+							<th>สินค้า</th>
+							<th>จำนวน</th>
+							<th>ผู้รับผิดชอบ</th>        
+							<th>ผู้ให้เบิก</th>
+							<th>วันที่</th>
+							<th><i class='far fa-edit' style='font-size:20px'></i>แก้ใข</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						{% for item in items %}
+						<tr>
+							<td>รูป</td>
+							<td> {{ item.item }} </td>
+							<td> {{ item.quatity }} </td>
+							<td> {{ item.user_account }} </td>
+							<td> {{ item.pgive }} </td>
+							<td> {{ item.date}} </td>
+							<td>แก้ใข</td>
+		
+						</tr>
+						{% endfor %}
+					</tbody>          
+				</table>
+				</div>
+			</div>
+			
+		</div>
+	</div>	
 </div>
-
-{% endblock%}
+	
+{% endblock content %}

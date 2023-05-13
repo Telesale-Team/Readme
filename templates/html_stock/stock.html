@@ -3,87 +3,124 @@
 {% block title %} Stock Page {% endblock title%}
 
 {% block content%}
+
 <div class="container-fluid">
 
-		<div class="jumbotron jumbotron-fluid mt-3">
-			<div class="container-fluid">
-
-				<h1>Item List</h1>      
-				<p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
-
-			</div>
-
-		</div>
-
-		<div class="row">
-		
-
-			<div class="col-sm-2 p-3">
-				<a href="add_Item/"><input name="" id="" class="btn btn-warning btn-block" type="button"  value="+ เพิ่มสต๊อก "></a>
-			</div>
-			<div class="col-sm-2 p-3">
-				<a href="add_Category"><input name="" id="" class="btn btn-warning btn-block" type="button" value="+ เพิ่มหมวดหมู่"></a>
-			</div>
-
-			<div class="col-sm-2 p-3">
-				<a href=""><input name="" id="" class="btn btn-warning btn-block" type="button" value="+ ค้นหาสินค้า"></a>
-			</div>
-
-			<div class="col-sm-2 p-3">
-				<input name="" id="" class="btn btn-warning btn-block" type="button" value="+ สินค้าทั้งหมด">
-			</div>
-
-		</div>
-		<div class="row">
-			<div class="col-sm-4 p-3">
-				<div class="card border p-3">
-					<form method="POST">
-						{% csrf_token %}
-
-						{{ form | crispy}}
-
-						<input type="submit" value="ลงทะเบียน" class="btn btn-success btn-block ">
-					</form>
-					
-
-				</div>
-				
-			</div>
-			<div class="col-sm-8 p-3">
-				<div class="card border">
-					<table class="table table-striped">      
-						<thead class="bg-dark text-light">
-							<tr>
-								<th>รูปภาพหลักฐานการเบิก</th>
-								<th>สินค้า</th>
-								<th>จำนวน</th>
-								<th>ผู้รับผิดชอบ</th>        
-								<th>ผู้ให้เบิก</th>
-								<th>วันที่</th>
-								<th><i class='far fa-edit' style='font-size:20px'></i>แก้ใข</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							{% for item in items %}
-							<tr>
-								<td>รูป</td>
-								<td> {{ item.item }} </td>
-								<td> {{ item.quatity }} </td>
-								<td> {{ item.user_account }} </td>
-								<td> {{ item.pgive }} </td>
-								<td> {{ item.date}} </td>
-								<td>แก้ใข</td>
-			
-							</tr>
-							{% endfor %}
-						</tbody>          
-					</table>
+	<div class="row bg-dark ">
+	
+		<div class="col-md-2 p-3">
+			<a href='/stock'>
+				<div class="card border-success">
+					<div class="card-body ">
+					<h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
+					<p class="card-text">คลังสินค้าทั้งหมด</p>
 					</div>
 				</div>
-				
-			</div>
+			</a>
+		  
 		</div>
+
+		<div class="col-md-2 p-3 ">
+			<a href="{% url 'add-stock'%}">
+			<div class="card border-info">
+				<div class="card-body bg-info text-light">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">เพิ่มสินค้าเข้าคลัง</p>              
+				</div>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-2 p-3 ">
+			<a href="add_Category">
+			<div class="card border-primary">
+				<div class="card-body bg-primary text-light">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">เพิ่ม/จัดการหมวดหมู่</p>              
+				</div>
+			</div>
+			</a>
+		</div>
+
+		<div class="col-md-2 p-3 ">
+			<a href="#">
+			<div class="card border-success ">
+				<div class="card-body bg-success text-light">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">เบิกสินค้า</p>              
+				</div>
+			</div>
+			</a>
+		</div>
+  
+	</div>
+
+	<div class="row bg-secondary mt-3">
+		<div class="col-md-2 p-3 ">
+			<a href="{% url 'add-notebook'%}">
+				<div class="card border-success">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+						<p class="card-text">โน๊ตบุ๊ก</p>              
+					</div>
+				</div>
+			</a>
+		  </div>
+	
+		  <div class="col-md-2 p-3 ">
+			<a href="{% url 'add-cable'%}">
+				<div class="card border-success">
+				<div class="card-body">
+					<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+					<p class="card-text">สายสัญญาณ</p>              
+				</div>
+				</div>
+			</a>
+		  </div>
+	
+	
+	
+		  <div class="col-md-2 p-3 ">
+			<a href="{% url 'add-notebook'%}">
+				<div class="card border-success">
+				<div class="card-body">
+					<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+					<p class="card-text">อุปกรณ์เบ็ตเตล็ด</p>              
+				</div>
+				</div>
+			</a>
+		  </div>
+	</div>
+
+	<div class="row mt-3">
+		<table class="table table-striped">      
+			<thead class="bg-dark text-light">
+				<tr>
+					<th>รูปภาพหลักฐานการเบิก</th>
+					<th>สินค้า</th>
+					<th>จำนวน</th>
+					<th>ผู้รับผิดชอบ</th>        
+					<th>วันที่</th>
+					<th><i class='far fa-edit' style='font-size:20px'></i>อัพเดท</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+
+				<tr>
+					<td>.</td>
+					<td>.</td>
+					<td>.</td>
+					<td>.</td>
+					<td>.</td>
+					<td>.</td>
+
+				</tr>
+
+			</tbody>          
+		</table>
+	</div>
+
 </div>
 	
 {% endblock content %}

@@ -1,29 +1,139 @@
-{% extends 'base/layout_nonav.html'%}
+{% extends 'base/layout.html'%}
 {% block title %} Register Page {% endblock title%}
 {% load crispy_forms_tags %}
 
 
 {%block content %}
-	<div class="container">
-		<div class="row ">
-			<div class="col-md-10 ">
-				<div class="border p-3">
-					<div class="card bg-dark text-light">
-						<div class="card-body text-center">
-						  <h4 class="card-text"> สร้างรหัสใช้งาน </h4>
+	<div class="container-fluid">
+
+		<div class="row bg-dark">
+			<div class="col-md-2 p-2">
+				<a href="/user/">
+					<div class="card border-success bg-success text-light">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+							<p class="card-text">ผู้ใช้งานระบบทั้งหมด</p>
 						</div>
 					</div>
-					
-					<hr>
-					<form action="" method="post">
-						{% csrf_token %}
-						{{ form |crispy }}
-						<hr>
-						<input type="submit" value="สร้างรหัสใช้งาน" class="btn btn-success btn-block ">
-						
-					</form>
-				</div>
+				</a>
+			  
 			</div>
+	
+		
+			<div class="col-md-2 p-2">
+				<a href="/register">
+					<div class="card border-success bg-info text-light">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+							<p class="card-text">สร้างรหัสใช้งาน</p>
+						</div>
+					</div>
+				</a>
+			  
+			</div>
+		
+			
+			<div class="col-md-2 p-2">
+			  <a href="{%url 'add-position'%}">
+				<div class="card border-success bg-success text-light">
+					<div class="card-body">
+						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+						<p class="card-text">เพิ่มแผนก</p>
+					</div>
+				</div>
+				</a>
+			</div>
+		
+			<div class="col-md-2 p-2">
+				<a href="{%url 'add-skill'%}">
+					<div class="card border-success bg-warning text-light">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+							<p class="card-text">เพิ่มทักษะการทำงาน</p>
+						</div>
+					</div>
+				</a>
+				
+			</div>
+	
+		
+			<div class="col-md-2 p-2">
+				<a href="{% url 'add-team' %}">
+					<div class="card border-success bg-primary text-light">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
+							<p class="card-text">เพิ่มทีม</p>
+						</div>
+					</div>
+				  </a>
+				
+			</div>
+		
+			<div class="col-md-2 p-2">
+				<a href='/user'>
+				<div class="card border-success bg-secondary text-light">
+					<div class="card-body">
+						<h4 class="card-title "><i class="fa-solid fa-users"></i> {{ total }} คน</h4>
+						<p class="card-text">รายงานพนักงาน</p>
+					</div>
+				</div>
+				</a>
+			  
+			</div>
+	
 		</div>
+
+		<div class="row mt-1">
+
+			<div class="col-md-6 ">
+				<div class="card border-primary bg-dark text-light">
+				  <div class="card-body">
+					<h4 class="card-title">สร้างรหัสใช้งาน</h4>
+					<p class="card-text">Username = รหัสพนักงาน เช่น 1001</p>
+					<form method="post" >
+						{% csrf_token %}
+						{{ form|crispy }}
+						<button class="btn btn-success btn-block" type="submit">ลงทะเบียน</button>
+					</form>
+
+				  </div>
+				</div>
+				
+			</div>
+
+			<div class="col-md-6">
+				<div class="card border">
+	
+					<table class="table table-striped">      
+						<thead class="bg-dark text-light">
+							<tr>
+								<th>User ID</th>
+								<th>Email </th>
+								<th>Edit </th>
+							
+
+							</tr>
+						</thead>
+						
+						<tbody>
+							{% for user in users %}
+							<tr>
+								<td> {{ user.username }} </td>
+								<td> {{ user.username.email }} </td>
+								<td> แก้ใข</td>
+								
+
+							</tr>
+							{% endfor %}
+						</tbody>          
+					</table>
+	
+				</div>
+				
+			</div>
+
+
+		</div>
+
 	</div>
 {%endblock content %}

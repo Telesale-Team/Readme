@@ -1,61 +1,67 @@
-{% extends 'base/layout.html' %}
+{% extends 'base/layout.html'%}
+{% block title %} Add Stock Page {% endblock title%}
+{% load crispy_forms_tags %}
 
-{% block title %} Stock Page {% endblock title%}
+{% block content%}
+<div class="container-fluid">
+    <div class="row bg-dark">
 
-
-
-
-{% block content %}
-
-<div class="container-fluid" style="margin-top: 15px;">
-    <form method="POST">
-      {% csrf_token %}      
-        <div class="row">
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">ชื่อสินค้า</span>
-                  </div>
-                  <input type="text" class="form-control">
-                </div>
-
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">รูปภาพ</span>
-                    </div>
-                    <input type="text" class="form-control">
-                </div>
-              
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">รายละเอียด</span>
-                    </div>
-                    <input type="text" class="form-control">
-                </div>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">ผู้เบิกสินค้า</span>
-                  </div>
-                  <input type="text" class="form-control">
-                </div>
-              
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">ผู้จ่ายสินค้า</span>
-                  </div>
-                  <input type="text" class="form-control">
-                </div>
-              
-              
-                <button type="submit" class="btn btn-success btn-bg btn-block">บันทึกข้อมูล</button>
-              
-            </form>
+      <div class="col-md-2 p-3">
+      <a href='/stock'>
+        <div class="card border-success">
+          <div class="card-body">
+            <h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
+            <p class="card-text">คลังสินค้าทั้งหมด</p>
+          </div>
         </div>
+      </a>
+        
+      </div>
+
+      <div class="col-md-2 p-3 ">
+		<a href="{% url 'add-notebook'%}">
+			<div class="card border-success">
+			<div class="card-body">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">โน๊ตบุ๊ก</p>              
+			</div>
+			</div>
+		</a>
+      </div>
+
+	  <div class="col-md-2 p-3 ">
+		<a href="{% url 'add-cable'%}">
+			<div class="card border-success">
+			<div class="card-body">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">สายสัญญาณ</p>              
+			</div>
+			</div>
+		</a>
+      </div>
+
+
+
+	  <div class="col-md-2 p-3 ">
+		<a href="{% url 'add-notebook'%}">
+			<div class="card border-success">
+			<div class="card-body">
+				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
+				<p class="card-text">อุปกรณ์เบ็ตเตล็ด</p>              
+			</div>
+			</div>
+		</a>
+      </div>
+
+    </div>
+
+
+	
+
 
 </div>
-{% endblock content %}
 
 
+
+{% endblock content%}
 
