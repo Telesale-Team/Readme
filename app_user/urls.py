@@ -1,5 +1,4 @@
 from django.urls import path,include
-from .views import *
 from app_user.views import *
 from app_login.views import delete_profile
 
