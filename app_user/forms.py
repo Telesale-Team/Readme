@@ -30,7 +30,7 @@ class TeamForm(forms.ModelForm):
         model = Team
         fields = '__all__'
         
-class IdForm(forms.ModelForm):
+class PositionForm(forms.ModelForm):
 
     class Meta:
 

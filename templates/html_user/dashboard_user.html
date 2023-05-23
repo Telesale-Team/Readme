@@ -4,151 +4,104 @@
 
 {% block content%}
 <div class="container-fluid">
-	<div class="row bg-dark">
+	{% include 'html_user/navbar_user.html'%}
 
-	
-		
-		<div class="col-md-2 p-2">
-			<a href="/register">
-				<div class="card border-success bg-danger text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">สร้างรหัสใช้งาน</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-	
-		
-		<div class="col-md-2 p-2">
-		  <a href="{%url 'add-position'%}">
-			<div class="card border-success bg-success text-light">
-				<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-					<p class="card-text">เพิ่มแผนก</p>
-				</div>
+	<div class="row mt-1">
+
+		<div class="col-md-12 ">
+			<div class="card border">
+			  <div class="card-body bg-dark text-light">
+				<h4>ค้นหาข้อมูล</h4>
+				<form method="GET" action="#">
+				{% csrf_token %}
+				{{ filter }}
+					<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
+					<a class="btn btn-secondary " href="/user"> Refrest </a>
+					<a class = "btn btn-success"href="{%url 'register'%}"><i class='fas fa-user-plus' style='font-size:24px'></i> เพิ่มพนักงาน </a>
+				</form>
+			  </div>
 			</div>
-			</a>
-		</div>
-	
-		<div class="col-md-2 p-2">
-			<a href="{%url 'add-skill'%}">
-				<div class="card border-success bg-warning text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">เพิ่มทักษะการทำงาน</p>
-					</div>
-				</div>
-			</a>
-			
+
 		</div>
 
-	
-		<div class="col-md-2 p-2">
-			<a href="{% url 'add-team' %}">
-				<div class="card border-success bg-primary text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">เพิ่มทีม</p>
-					</div>
-				</div>
-			  </a>
-			
-		</div>
-	
-		<div class="col-md-2 p-2">
-			<a href="/user/">
-				<div class="card border-success bg-success text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">ผู้ใช้งานระบบทั้งหมด</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-		  
-		</div>
+		<div class="col-md-12">
 
-	</div>
-	<div class="row mt-2">
-        <div class="col-md-3">
             <div class="card border">
-              <div class="card-body bg-dark text-light">
-                <h4 class="card-title">ค้นหาข้อมูล</h4><br>
-                <form method="GET" action="#">
-                {% csrf_token %}
-                {{ form|crispy}}
-                    <button type="submit" class="btn btn-primary">Search</button>
-                    <a  class="btn btn-success" href="/user"> Refrest </a>
-                </form>
-              </div>
+				<table class="table table-striped ">
+    
+					<thead class="bg-dark text-light">
+					  <tr>
+						<th> รูปภาพ </th>
+						<th> รหัส </th>
+						<th> ชื่อ </th>
+						<th> ตำแหน่ง </th>
+						<th> แผนก </th>        
+						<th> ความสามารถ </th>        
+						<th> วันเริ่มงาน </th>
+						<th> สถานะ </th>
+					  </tr>
+					</thead>
+					
+					<tbody>
+					  {% for user in user %}
+					  <tr>
+						<td><img src="{{ user.image.url}}"  width="50" height="50" alt="..."></td>        
+						<td> {{ user.username}}</td>
+						<td> {{ user.nickname}}</td>
+						<td> {{ user.position }}</td> 
+						<td> {{ user.team}} </td>
+						<td> {{ user.working_skill}} </td>
+						<td> {{ user.worked_date}} </td>
+						<td>
+							
+							<a href="{% url 'profile-update' user.pk %}" ><i class='far fa-eye' style='font-size:24px'></i></a>
+							<a class="p-2 text-danger" href="{% url 'profile-delete' user.pk %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
+						
+						</td>
+
+					  </tr>
+					  {% endfor %}
+					</tbody>
+					
+				</table>
+
             </div>
-            
+
         </div>
-        <div class="col-md-9">
-          <table class="table table-dark table-hover">
-              <thead class="thead-dark">
-                <tr>
-                  <th>ชื่อหนังสือ</th>
-                  <th>หมวดหมู</th>
-                  <th>ลูกค้า</th>
-                  <th>ราคา</th>
-                  <th>action</th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-              {% for user in user %}
-                <tr>
-                  <td>{{ user.nickname }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td><a href=#>เพิ่มเติม..</a></td>
-                  
-                </tr>
-                {% endfor %}
-
-          </table>
-
-          
-      	</div>
+	</div>
+		<!-- 
+		{% for user in profile %}
+			<div class="col-md-3 col-md-6 col-lg-4">
+				<div class="card bg-dark text-white">
+					<div class="card-body">
+						
+						<div class="row">
+							
+							<div class="col-md-3 col-md-6 col-lg-4">
+								<img src="{{user.image.url}}" class="mx-auto d-block" width="150" height="150" alt="...">  
+							</div>
+							<div class="col-md-9 col-md-6 col-lg-6">
+							  <p>รหัสพนักงาน : {{ user.username }}  </p> 
+							  
+							  <p>ชื่อในวงการ : {{ user.nickname }} </p>
+							  <p>สังกัดทีม : {{ user.team }} </p>
+							  <p>ตำแหน่ง : {{ user.position }} </p>
+		
+							</div>
+							<div class="col-md-9 col-md-6 col-lg-1">
+								<a href="{% url 'profile-update' user.id %}" ><i class='fas fa-user-cog text-center' style='font-size:20px'></i></a>
+							</div>
+							
+						</div>
+						
+					</div>
+				  </div>
+				<br>
+			</div>
+			{% endfor %}
+		-->
+		
     </div>
 </div>
-	<div class="row mt-2">
-		{% for user in profile %}
-		<div class="col-md-3 col-md-6 col-lg-4">
-			<div class="card bg-dark text-white">
-				<div class="card-body">
-	
-					<div class="row">
-	
-						<div class="col-md-3 col-md-6 col-lg-4">
-							<img src="{{user.image.url}}" class="mx-auto d-block" width="150" height="150" alt="...">  
-						</div>
-						<div class="col-md-9 col-md-6 col-lg-6">
-						  <p>รหัสพนักงาน : {{ user.username }}  </p> 
-						  
-						  <p>ชื่อในวงการ : {{ user.nickname }} </p>
-						  <p>สังกัดทีม : {{ user.team }} </p>
-						  <p>ตำแหน่ง : {{ user.position }} </p>
-	
-						</div>
-						<div class="col-md-9 col-md-6 col-lg-1">
-							<a href="{% url 'profile-update' user.id %}" ><i class='fas fa-user-cog text-center' style='font-size:20px'></i></a>
-						  </div>
-					</div>
-				</div>
-			  </div>
-			<br>
-		</div>
-		{% endfor %}
-	
-		
-		
-	</div>
-	
 
 {% endblock content %}

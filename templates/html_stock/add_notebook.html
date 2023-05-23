@@ -5,90 +5,47 @@
 {% block content%}
 
 <div class="container-fluid">
-	<div class="row bg-dark">
-
-		<div class="col-md-2 p-3">
-			<a href='/stock'>
-				<div class="card border-success">
-					<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
-					<p class="card-text">คลังสินค้าทั้งหมด</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-  
-		<div class="col-md-2 p-3 ">
-		  <a href="{% url 'add-notebook'%}">
-			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				  <p class="card-text">โน๊ตบุ๊ก</p>              
-			  </div>
-			  </div>
-		  </a>
-		</div>
-
-		<div class="col-md-2 p-3 ">
-			<a href="{% url 'add-cable'%}">
-				<div class="card border-success">
-				<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-					<p class="card-text">สายสัญญาณ</p>              
-				</div>
-				</div>
-			</a>
-		</div>
-  
-		<div class="col-md-2 p-3 ">
-		  <a href="{% url 'add-office'%}">
-			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				  <p class="card-text">อุปกรณ์เบ็ตเตล็ด</p>              
-			  </div>
-			  </div>
-		  </a>
-		</div>
-  
-	</div>
-
+	{% include 'html_stock/base_stock.html'%}
 
 	<div class="row">
-		
-		<div class="col-sm-4 p-3 ">
-			<div class="card border mb-3 bg-dark text-light">
-				<div class="card-body">
-				  <h4 class="card-title text-center">โน๊ตบุ๊ก</h4>
-	
-				</div>
+		<div class="col-md-12 ">
+			<div class="card border">
+			  <div class="card-body bg-dark text-light">
+				<h4>ค้นหาข้อมูล</h4>
+				<form method="GET" action="#">
+				{% csrf_token %}
+				{{ filter }}
+					<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
+					<a class="btn btn-secondary " href="{% url 'add-notebook'%}"> Refrest </a>
+				
+				</form>
+			  </div>
 			</div>
+		</div>
+
+	
+		<div class="col-sm-4 p-3 ">
 			
-			<div class="card border p-3">
+			<div class="card border p-3 bg-dark text-light">
+				<h4>เพิ่มสินค้า</h4><br>
+				
 				<form method="POST">
 					{% csrf_token %}
-
 					{{ form | crispy}}
-
-					<input type="submit" value="ลงทะเบียน" class="btn btn-success btn-block ">
+					<input type="submit" value="เพิ่มสินค้า" class="btn btn-success btn-block ">
 				</form>
+
 			</div>
 			
 		</div>
+
+
 		<div class="col-sm-8 p-3">
-			<div class="card border mb-3 bg-dark text-light">
-				<div class="card-body">
-				  <h4 class="card-title text-center">รายการเบิกโน๊ตบุ๊ก</h4>
-	
-				</div>
-			</div>
-			
 			<div class="card border">
 				<table class="table table-striped">      
 					<thead class="bg-dark text-light">
 						<tr>
-							<th>รายการ</th>
+							<th>รายการสินค้า</th>
 							<th>หมวดหมู่</th>
 							<th>ซีเรียลอุปกรณ์</th>
 							<th>ผู้รับผิดชอบ</th>        
@@ -98,7 +55,7 @@
 					</thead>
 					
 					<tbody>
-						{% for item in items %}
+						{% for item in notebook %}
 						<tr>
 
 							<td> {{ item.name }} </td>
@@ -116,7 +73,9 @@
 			</div>
 			
 		</div>
-	</div>	
+	</div>
+	
+	
 </div>
 	
 {% endblock content %}

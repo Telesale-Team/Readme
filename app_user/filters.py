@@ -5,5 +5,33 @@ class ProfileFilter(django_filters.FilterSet):
 
     class Meta:
         model = ProfileUser
-        fields = {'nickname':['icontains']}
+        fields = {
+                  'nickname':['icontains'],
+                  'position':['exact'],
+
+                  }
         
+class PositionFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Positions
+        fields = {
+                  'name':['icontains'],
+                  }
+
+
+class TeamFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Team
+        fields = {
+                  'name':['icontains'],
+                  }
+        
+class SkillFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Skill
+        fields = {
+                  'name':['icontains'],
+                  }

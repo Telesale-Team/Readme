@@ -46,7 +46,7 @@ class Team (models.Model):
 class ProfileUser(models.Model):
     
     username = models.OneToOneField(User,on_delete=models.CASCADE) # ชื่อพนักงาน  
-    nickname = models.CharField(max_length=20,blank=True)	# ชื่อเล่นพนักงาน
+    nickname = models.CharField('ชื่อพนักงาน',max_length=20,blank=True)	# ชื่อเล่นพนักงาน
     address = models.CharField(max_length=255,blank=True,null=True)# ที่อยู่ 
     phone = models.CharField(max_length=10,blank=True) #  เบอร์โทรศัพท์
     position = models.ForeignKey(Positions,on_delete=models.CASCADE,blank=True,null=True)

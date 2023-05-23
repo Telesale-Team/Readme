@@ -8,38 +8,57 @@ from app_custom.models import *
 from app_money.models import *
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from .filters import *
 
 
 
 # Create your views here.
 @login_required(login_url="/")
 def dashboard (request):
-	notebook = Notebook.objects.all()
+    
+
 	cable = Cable.objects.all()
 	office = Office.objects.all()
 	category = Category.objects.all()
-	Q_notebook = notebook.count()
+ 
+	filter_notebook = NotebookFilter(request.GET,queryset=Cable.objects.all())
+	filter = filter_notebook.form
+	notebook = filter_notebook.qs
 	
-	print('Text',Q_notebook)
+	if request.method == "POST":
+		form = CableForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect("/stock")
+	else:
+		form = CableForm()
 
+	
 	context = {
-		"notebook" : notebook,
+
 		"cable" : cable,
+		"form"	:form,
   		"office" : office,
 		"category" : category,
-		"Q_notebook":Q_notebook,
+		"filter":filter,
+		"notebook":notebook,
   
 
 	}
 	return render(request,'html_stock/stock.html',context)
 
-
-
 @login_required(login_url="/")
 def Add_stock(request):
-    
+	
+	
+	filternotebook = NotebookFilter(request.GET,queryset=Notebook.objects.all())
+	filter = filternotebook.form
+	notebook = filternotebook.queryset
+	
+	
 	items = Stock.objects.all()
 	qutity_item = len(items)
+ 
 	if request.method == "POST":
 		form = ItemFrom(request.POST)
 		if form.is_valid():
@@ -52,6 +71,9 @@ def Add_stock(request):
 		"items" : items,
 		"form" : form,
 		"qutity_item":qutity_item,
+		"filter":filter,
+		"notebook":notebook,
+
 	}
 	return render (request,'html_stock/add_Stock.html',context)
  
@@ -76,7 +98,7 @@ def Add_Category(request):
 
 @login_required(login_url="/")
 def Add_Item(request):
-    
+	
 	items = Item.objects.all()
 	if request.method == "POST":
 		form = ItemFrom(request.POST)
@@ -95,7 +117,7 @@ def Add_Item(request):
 
 @login_required(login_url="/")
 def Add_Cable (request):
-    
+	
 	cable = Cable.objects.all()
 	if request.method == "POST":
 		form = CableForm(request.POST)
@@ -114,26 +136,32 @@ def Add_Cable (request):
 
 @login_required(login_url="/")
 def Add_Notebook (request):
-    
-	items = Notebook.objects.all()
+	
+
+	filternotebook = NotebookFilter(request.GET,queryset=Notebook.objects.all())
+	filter = filternotebook.form
+	notebook = filternotebook.queryset
+ 
 	if request.method == "POST":
 		form = NotebookForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("/stock")
+			return redirect("/stock/add_stock/add_notebook")
 	else:
 		form = NotebookForm()
 
 	context = {
-		"items" : items,
 		"form" : form,
+ 		"filter":filter,
+		"notebook":notebook,
+		
 	}    
 	
 	return render (request,'html_stock/add_notebook.html',context)
 
 @login_required(login_url="/")
 def Add_Office (request):
-    
+	
 	office = Office.objects.all()
 	if request.method == "POST":
 		form = OfficeForm(request.POST)
@@ -153,20 +181,20 @@ def Add_Office (request):
 @login_required(login_url="/")
 def Pickup (request,id):
 
-    items = Notebook.objects.get(id=id)
-    
-    if request.method == "POST":
-        form = NotebookForm(request.POST,instance=items)
-        if form.is_valid():
-            form.save()
-            return redirect("add_notebook")
-    else:
-        form = NotebookForm(instance=items)
-        
-        
-    context = {
-        "items":items,
+	items = Notebook.objects.get(id=id)
+	
+	if request.method == "POST":
+		form = NotebookForm(request.POST,instance=items)
+		if form.is_valid():
+			form.save()
+			return redirect("add_notebook")
+	else:
+		form = NotebookForm(instance=items)
+		
+		
+	context = {
+		"items":items,
 		"form": form,
 	}
-    
-    return render (request,'html_stock/pickup_notebook.html',context)
+	
+	return render (request,'html_stock/pickup_notebook.html',context)

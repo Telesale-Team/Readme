@@ -16,18 +16,18 @@
 		
 			
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-4">
 			<div class="border p-3">
 				<div class="card bg-primary text-light">
 					<div class="card-body text-center">
-					  <h4 class="card-text"> อัพเดท/แก้ใข ข้อมูลพนักงาน </h4>
+					  <h4 class="card-text"> อัพเดท/แก้ใข ข้อมูลพนักงาน a</h4>
 					</div>
 				</div>
 				<hr>
 				
 				<form method="post" enctype="multipart/form-data" >
 					{% csrf_token %}
-					{{ form|crispy }}
+					{{ form }}
 					<hr>
 					<button type="submit" class="btn btn-warning btn-block text-light">อัพเดท</button>
 					

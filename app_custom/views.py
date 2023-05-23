@@ -19,9 +19,7 @@ def index (request):
             return redirect("/dashboard/thaiban")
     else:
         form = ThaibanForm()
-
-        
-            
+   
     context = {
 
         "form": form,
@@ -56,6 +54,7 @@ def Add_thaiban (request):
     }
     
     return render (request,'html_customer/add_thaiban.html',context)
+
 
 @login_required(login_url="/")
 def Add_duckbet (request):

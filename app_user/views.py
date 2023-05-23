@@ -6,28 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import ProfileUser
-from .filters import ProfileFilter
+from .models import *
+from .filters import *
 from django.contrib.auth.models import User
 
 # Create your views here.
-
-@login_required(login_url="/")
-def PositionGroup (request,position=None):
-
-	if position != None:
-		position = get_object_or_404(Positions,name=position)
-		position = ProfileUser.objects.all().filter(position=position)
-		
-	else:
-		position = ProfileUser.objects.all()
-		
-	context = {
-		"postion":position
-	}
-		
-	return render(request,'html_user/position_group.html',context)
-
 
 @login_required(login_url='/')
 def Dashboard (request,position_slug=None):
@@ -36,8 +19,9 @@ def Dashboard (request,position_slug=None):
  
 	user_filter = ProfileFilter(request.GET,queryset=ProfileUser.objects.all())
 	
-	form = user_filter.form
+	filter = user_filter.form
 	user = user_filter.qs
+ 
 	if position_slug != None:
 		profile = ProfileUser.objects.all()
 		
@@ -54,12 +38,11 @@ def Dashboard (request,position_slug=None):
 		"profile":profile,
 		"total":total,
 		"profileCheck":profileCheck,
-		"form": form,
+		"filter": filter,
 		"user":user,
 	
 	}
 	return render (request,'html_user/dashboard_user.html',context)
-
 
 @login_required(login_url="/")
 def Profile (request,pk ):
@@ -81,7 +64,6 @@ def Profile (request,pk ):
 
 	return render (request,'html_user/profile_user.html',context)
 
-
 def Update_profile (request,pk):
 	profile = ProfileUser.objects.get(pk=pk)
 	if request.method == 'POST':
@@ -98,38 +80,86 @@ def Update_profile (request,pk):
 		"profile_form":profile_form,
 		"profile":profile
 	}
-	return render(request, 'html_login/update-profile.html', context)
+	return render(request, 'html_user/update-profile.html', context)
 
+@login_required
+def Delete_profile(request,pk):
+	
+	user = get_object_or_404(ProfileUser, pk = pk)
+	
+	if request.method == 'POST':
+		user.delete()
+		return redirect('/user')  # Redirect to home page or any other appropriate page
+	else:
+		return render(request, 'html_user/delete_profile.html', {'user': user})
 
 @login_required(login_url="/")
 def Add_Position (request ):
-	
-	user = ProfileUser.objects.all()
-	position = Positions.objects.all()
 
+	position_filter = PositionFilter(request.GET,queryset=Positions.objects.all())
+	filter = position_filter.form
+	position = position_filter.qs
+ 
 	if request.method == "POST":
-		form = IdForm(request.POST)
+		form = PositionForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("/customer")
+			return redirect("/user/add_position/")
 	else:
-		form = IdForm()
+		form = PositionForm()
 		
 		
 	context = {
-		"user":user,
+
+		"position":position,
+		"form": form,
+		"position_filter":position_filter,
+		"filter":filter,
+	}
+
+	return render (request,'html_user/add_positions.html',context)
+
+@login_required(login_url="/")
+def Update_Position (request,id ):
+	
+
+	position = get_object_or_404(Positions, id=id)
+
+	if request.method == "POST":
+		form = PositionForm(request.POST,instance=position)
+		if form.is_valid():
+			form.save()
+			return redirect("/user/add_position")
+	else:
+		form = PositionForm(instance=position)
+		
+		
+	context = {
+
 		"position":position,
 		"form": form,
 	}
 
-	return render (request,'html_user/add_positions.html',context)
+	return render (request,'html_user/update_positions.html',context)
+
+@login_required
+def Delete_Position(request, id):
+	position = get_object_or_404(Positions, id=id)
+
+	if request.method == 'POST':
+		position.delete()
+		return redirect("/user/add_position")  # Redirect to home page or any other appropriate page
+	else:
+		return render(request, 'html_user/delete_positions.html', {'position': position})
 
 
 @login_required(login_url="/")
 def Add_Team (request ):
 	
-	team = Team.objects.all()
 
+	filterteam = TeamFilter(request.GET,queryset=Team.objects.all())
+	filter = filterteam.form
+	team = filterteam.qs
 	if request.method == "POST":
 		form = TeamForm(request.POST)
 		if form.is_valid():
@@ -142,16 +172,56 @@ def Add_Team (request ):
 	context = {
 		"team":team,
 		"form": form,
+		"filter":filter,
 
 	}
 
 	return render (request,'html_user/add_team.html',context)
 
+@login_required(login_url="/")
+def Update_Team (request,pk ):
+	
+
+	team = get_object_or_404(Team, pk=pk)
+
+	if request.method == "POST":
+		form = TeamForm(request.POST,request.FILES,instance=team)
+		if form.is_valid():
+			form.save()
+			return redirect("/user/add_team/")
+	else:
+		form = TeamForm(instance=team)
+		
+		
+	context = {
+
+		"team":team,
+		"form": form,
+	}
+
+	return render (request,'html_user/update_team.html',context)
+
+
+@login_required
+def Delete_Team(request,pk):
+	
+	team = get_object_or_404(Team, pk = pk)
+	
+	if request.method == 'POST':
+		team.delete()
+		return redirect('/user/add_team/')  # Redirect to home page or any other appropriate page
+	else:
+		return render(request, 'html_user/delete_team.html', {'team': team})
+
 
 @login_required(login_url="/")
 def Add_Skill (request ):
 	
-	skill = Skill.objects.all()
+
+	filterskill = SkillFilter(request.GET,queryset=Skill.objects.all())
+	filter = filterskill.form
+	skill = filterskill.qs
+ 
 	if request.method == "POST":
 		form = SkillForm(request.POST)
 		if form.is_valid():
@@ -165,11 +235,66 @@ def Add_Skill (request ):
 
 		"form": form,
 		"skill": skill,
+		"filter":filter,
 
 	}
 
 	return render (request,'html_user/add_skill.html',context)
 
+@login_required(login_url="/")
+def Update_Skill (request,pk ):
+	
+
+	skill = get_object_or_404(Skill, pk=pk)
+
+	if request.method == "POST":
+		form = SkillForm(request.POST,request.FILES,instance=skill)
+		if form.is_valid():
+			form.save()
+			return redirect("/user/add_skill/")
+	else:
+		form = SkillForm(instance=skill)
+		
+		
+	context = {
+
+		"skill":skill,
+		"form": form,
+	}
+
+	return render (request,'html_user/update_skill.html',context)
+
+
+@login_required
+def Delete_Skill(request,pk):
+	
+	skill = get_object_or_404(Skill, pk = pk)
+
+	if request.method == 'POST':
+		skill.delete()
+		return redirect('/user/add_skill/')  # Redirect to home page or any other appropriate page
+	else:
+		return render(request, 'html_user/delete_skill.html', {'skill': skill})
+
+
+
+
+
+@login_required(login_url="/")
+def PositionGroup (request,position=None):
+
+	if position != None:
+		position = get_object_or_404(Positions,name=position)
+		position = ProfileUser.objects.all().filter(position=position)
+		
+	else:
+		position = ProfileUser.objects.all()
+		
+	context = {
+		"postion":position
+	}
+		
+	return render(request,'html_user/position_group.html',context)
 
 @login_required(login_url="/")
 def Report_user (request):

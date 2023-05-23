@@ -4,65 +4,11 @@
 
 {% block content%}
 <div class="container-fluid">
-	<div class="row bg-dark">
-
-		<div class="col-md-2 p-3">
-			<a href='/stock'>
-				<div class="card border-success">
-					<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
-					<p class="card-text">คลังสินค้าทั้งหมด</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-  
-		<div class="col-md-2 p-3 ">
-		  <a href="{% url 'add-notebook'%}">
-			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				  <p class="card-text">โน๊ตบุ๊ก</p>              
-			  </div>
-			  </div>
-		  </a>
-		</div>
-
-		<div class="col-md-2 p-3 ">
-			<a href="{% url 'add-cable'%}">
-				<div class="card border-success">
-				<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-					<p class="card-text">สายสัญญาณ</p>              
-				</div>
-				</div>
-			</a>
-		  </div>
-  
-		<div class="col-md-2 p-3 ">
-		  <a href="{% url 'add-office'%}">
-			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				  <p class="card-text">อุปกรณ์เบ็ตเตล็ด</p>              
-			  </div>
-			  </div>
-		  </a>
-		</div>
-  
-	</div>
+	{% include 'html_stock/base_stock.html'%}
 
 	<div class="row">
-		<div class="col-sm-4 p-3">
-
-			<div class="card border mb-3 bg-dark text-light">
-				<div class="card-body">
-				  <h4 class="card-title text-center">สายสัญญาณ</h4>
-	
-				</div>
-			</div>
-			<div class="card border p-3">
+		<div class="col-md-4 p-3">
+			<div class="card border p-3 bg-dark text-light">
 				<form method="POST">
 					{% csrf_token %}
 
@@ -74,12 +20,7 @@
 			
 		</div>
 		<div class="col-sm-8 p-3">
-			<div class="card border mb-3 bg-dark text-light">
-				<div class="card-body">
-				  <h4 class="card-title text-center">รายการเบิกสายสัญญาณ</h4>
-	
-				</div>
-			</div>
+
 			<div class="card border">
 				<table class="table table-striped">      
 					<thead class="bg-dark text-light">

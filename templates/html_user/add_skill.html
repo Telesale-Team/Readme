@@ -6,99 +6,52 @@
 {% block content %}
 
 <div class="container-fluid">
+	{% include 'html_user/navbar_user.html'%}
 
-	<div class="row bg-dark">
-
-	
-		
-		<div class="col-md-2 p-2">
-			<a href="/register">
-				<div class="card border-success bg-danger text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">สร้างรหัสใช้งาน</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-	
-		
-		<div class="col-md-2 p-2">
-		  <a href="{%url 'add-position'%}">
-			<div class="card border-success bg-success text-light">
-				<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-					<p class="card-text">เพิ่มแผนก</p>
-				</div>
+	<div class="row">
+		<div class="col-md-12 mt-1">
+			<div class="card border">
+				
+			  <div class="card-body bg-dark text-light">
+				<h4>ค้นหาข้อมูล</h4>
+				<form method="GET" action="#">
+				{% csrf_token %}
+				{{ filter }}
+					<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
+					<a  class="btn btn-secondary " href="{%url 'add-skill'%}"> Refrest </a>
+					
+				</form>
+			  </div>
 			</div>
-			</a>
-		</div>
-	
-		<div class="col-md-2 p-2">
-			<a href="{%url 'add-skill'%}">
-				<div class="card border-success bg-warning text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">เพิ่มทักษะการทำงาน</p>
-					</div>
-				</div>
-			</a>
-			
-		</div>
 
-	
-		<div class="col-md-2 p-2">
-			<a href="{% url 'add-team' %}">
-				<div class="card border-success bg-primary text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">เพิ่มทีม</p>
-					</div>
-				</div>
-			  </a>
-			
 		</div>
-	
-		<div class="col-md-2 p-2">
-			<a href="/user/">
-				<div class="card border-success bg-success text-light">
-					<div class="card-body">
-						<h4 class="card-title"><i class="fa-solid fa-bars"></i></h4>
-						<p class="card-text">ผู้ใช้งานระบบทั้งหมด</p>
-					</div>
-				</div>
-			</a>
-		  
-		</div>
-		  
-		</div>
-
 	</div>
 
 	<div class="row mt-1">
 		
-		<div class="col-md-6">
+		<div class="col-md-4">
+			
 			<div class="card-border  bg-dark text-light p-3">
+				<h4>เพิ่มข้อมูล</h4>
 				<form action="" method="post">
 					{% csrf_token %}
 					{{ form |crispy }}
 
-					<input type="submit" value=" + เพิ่มตำแหน่งงาน" class="btn btn-success btn-block ">
+					<input type="submit" value=" + เพิ่มตำแหน่งงาน" class="btn btn-success">
 					
 				</form>
 			</div>
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-8">
 			<div class="card border">
 
 				<table class="table table-striped">      
 					<thead class="bg-dark text-light">
 						<tr>
-							<th>ตำแหน่ง</th>
+							<th>ทักษะทำงาน</th>
 							<th><i class='far fa-edit' style='font-size:20px'></i>แก้ใข</th>
-							<th>ลบ</th>
+
 						</tr>
 					</thead>
 					
@@ -107,8 +60,12 @@
 						<tr>
 
 							<td> {{ skill.name }} </td>
-							<td><a href="{% url 'pickup_notebook' skill.id  %}"><i class='far fa-edit' style='font-size:20px'></i></a></td>
-							<td><i class="fa-sharp fa-solid fa-trash"></i></td>
+							
+							<td>
+								<a href="{% url 'update-skill' skill.id %}" ><i class='far fa-eye' style='font-size:24px'></i></a>
+								<a href="{% url 'delete-skill' skill.id %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
+
+							</td>
 						</tr>
 						{% endfor %}
 					</tbody>          

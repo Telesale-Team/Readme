@@ -1,13 +1,26 @@
 {% extends 'base/layout.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Delete User Page {% endblock title%}
 
-{% block title %}  
+{% block content %}
 
-<title>Add /user/report_user</title>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card border">
+          <img class="card-img-top" src="{{ user.profileuser.image.url}}" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Delete User {{ user.profileuser.nickname }} </h4>
+            <p class="card-text">คุณต้องการลบผู้ใช้: {{ user.username }} ?</p>
 
-{% endblock title %}
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class='btn btn-danger btn-block'>Delete</button>
+            </form>
 
-{% block c01%}
+          </div>
+        </div>
+        
+    </div>
+</div>
 
-<h1 > Hello Add_/user/report_user<h1>
-
-{% endblock c01%}
+    {% endblock content %}

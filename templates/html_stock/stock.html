@@ -6,55 +6,116 @@
 
 <div class="container-fluid">
 
-	<div class="row bg-dark ">
-	
-		<div class="col-md-2 p-3">
-			<a href='/stock'>
-				<div class="card border-success">
-					<div class="card-body ">
-					<h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
-					<p class="card-text">คลังสินค้าทั้งหมด</p>
+	{% include 'html_stock/base_stock.html'%}
+
+	<div class="row mt-1">
+
+		<div class="col-md-12 ">
+			<div class="card border">
+			  <div class="card-body bg-dark text-light">
+				<h4>ค้นหาข้อมูล</h4>
+				
+				<form method="GET" action="#">
+				{% csrf_token %}
+				{{ filter }}
+					<button type="submit" class="btn btn-primary">ค้นหา</button>
+					<a class="btn btn-secondary " href="{% url 'stock'%}"> Refrest </a>
+				</form>
+					
+			  </div>
+			</div>
+
+		</div>
+
+		<div class="col-md-4">
+			<div class="card border p-3 bg-dark text-light">
+				<h4>เพิ่มสินค้าลงสต๊อก </h4>
+				<form method="POST" autocomplete="off">
+					{% csrf_token %}
+
+					<div class="row">
+
+						<div class="col-md-6">
+							{{ form.serial|as_crispy_field}}
+						</div>
+
+						<div class="col-md-6">
+							{{ form.name|as_crispy_field}}
+						</div>
+						
+						<div class="col-md-6">
+							{{ form.quatity|as_crispy_field}}
+						</div>
+						
+
+						<div class="col-md-6">
+							{{ form.category|as_crispy_field}}
+						</div>
+						<div class="col-md-6">
+							{{ form.user_account|as_crispy_field}}
+						</div>
+						<div class="col-md-6">
+							{{ form.date|as_crispy_field}}
+						</div>
+						<div class="col-md-12">
+							{{ form.detail|as_crispy_field}}
+						</div>
 					</div>
-				</div>
-			</a>
-		  
+
+					<input type="submit" value="เพิ่มสินค้าลงสต๊อก" class="btn btn-success btn-block ">
+				</form>
+			</div>
+			
 		</div>
 
-		<div class="col-md-2 p-3 ">
-			<a href="{% url 'add-stock'%}">
-			<div class="card border-info">
-				<div class="card-body bg-info text-light">
-				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				<p class="card-text">เพิ่มสินค้าเข้าคลัง</p>              
-				</div>
-			</div>
-			</a>
-		</div>
+		<div class="col-md-8">
 
-		<div class="col-md-2 p-3 ">
-			<a href="add_Category">
-			<div class="card border-primary">
-				<div class="card-body bg-primary text-light">
-				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				<p class="card-text">เพิ่ม/จัดการหมวดหมู่</p>              
-				</div>
-			</div>
-			</a>
-		</div>
+            <div class="card border">
+				<table class="table table-striped ">
+    
+					<thead class="bg-dark text-light">
+					  <tr>
+						<th> รหัสสินค้า </th>
+						<th> ชื่อสินค้า </th>
+						<th> หมวดหมู่ </th>
+						<th> ผู้รับผิดชอบ </th>
+						<th> สถานะ </th>
 
-		<div class="col-md-2 p-3 ">
-			<a href="#">
-			<div class="card border-success ">
-				<div class="card-body bg-success text-light">
-				<h4 class="card-title"><i class="fa-solid fa-cart-shopping"></i></h4>
-				<p class="card-text">เบิกสินค้า</p>              
-				</div>
-			</div>
-			</a>
-		</div>
-  
+				
+				
+					  </tr>
+					</thead>
+					
+					<tbody>
+					  {% for item in notebook %}
+					  <tr>
+
+						<td> {{ item.serial }}</td>
+						<td> {{ item.name }}</td>
+						<td> {{ item.category }} </td> 
+						<td> {{ item.user_account }}</td>
+						<td>
+							
+							<a href="{% url 'profile-update' item.pk %}" ><i class='far fa-eye' style='font-size:24px'></i></a>
+							<a  href="{% url 'profile-delete' item.pk %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
+							
+						
+						</td>
+
+					  </tr>
+					  {% endfor %}
+					</tbody>
+					
+				</table>
+
+            </div>
+
+        </div>
 	</div>
 
+
+
+<!-- 
 	<div class="row bg-secondary mt-3">
 		<div class="col-md-2 p-3 ">
 			<a href="{% url 'add-notebook'%}">
@@ -91,36 +152,7 @@
 			</a>
 		  </div>
 	</div>
-
-	<div class="row mt-3">
-		<table class="table table-striped">      
-			<thead class="bg-dark text-light">
-				<tr>
-					<th>รูปภาพหลักฐานการเบิก</th>
-					<th>สินค้า</th>
-					<th>จำนวน</th>
-					<th>ผู้รับผิดชอบ</th>        
-					<th>วันที่</th>
-					<th><i class='far fa-edit' style='font-size:20px'></i>อัพเดท</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-
-				<tr>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-
-				</tr>
-
-			</tbody>          
-		</table>
-	</div>
-
+-->
 </div>
 	
 {% endblock content %}
