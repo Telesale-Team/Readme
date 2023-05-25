@@ -18,7 +18,7 @@
 				{% csrf_token %}
 				{{ filter }}
 					<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
-					<a  class="btn btn-secondary " href="{%url 'add-skill'%}"> Refrest </a>
+					<a  class="btn btn-secondary " href="{%url 'add-skill'%}"> รีเฟรส </a>
 					
 				</form>
 			  </div>
@@ -62,8 +62,8 @@
 							<td> {{ skill.name }} </td>
 							
 							<td>
-								<a href="{% url 'update-skill' skill.id %}" ><i class='far fa-eye' style='font-size:24px'></i></a>
-								<a href="{% url 'delete-skill' skill.id %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
+								<a href="{% url 'update-skill' skill.id %}" class = "btn btn-primary"><i class='far fa-eye' style='font-size:24px'></i></a>
+								<a href="{% url 'delete-skill' skill.id %}"class = "btn btn-danger" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
 
 							</td>
 						</tr>

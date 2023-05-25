@@ -17,7 +17,11 @@
 				{{ filter }}
 					<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
 					<a class="btn btn-secondary " href="/user"> Refrest </a>
-					<a class = "btn btn-success"href="{%url 'register'%}"><i class='fas fa-user-plus' style='font-size:24px'></i> เพิ่มพนักงาน </a>
+					<a class = "btn btn-success"href="{%url 'register'%}"><i class="fa-solid fa-plus"></i> เพิ่มพนักงาน </a>
+					<a class = "btn btn-success"href="{%url 'add-position'%}"><i class="fa-solid fa-plus"></i> เพิ่มแผนก </a>
+					<a class = "btn btn-success"href="{%url 'add-skill'%}"><i class="fa-solid fa-plus"></i> เพิ่มทักษะการทำงาน </a>
+					<a class = "btn btn-success"href="{% url 'add-team' %}"><i class="fa-solid fa-plus"></i> เพิ่มทีม </a>
+					
 				</form>
 			  </div>
 			</div>
@@ -25,10 +29,8 @@
 		</div>
 
 		<div class="col-md-12">
-
-            <div class="card border">
 				<table class="table table-striped ">
-    
+	
 					<thead class="bg-dark text-light">
 					  <tr>
 						<th> รูปภาพ </th>
@@ -43,7 +45,7 @@
 					</thead>
 					
 					<tbody>
-					  {% for user in user %}
+					  {% for user in page.object_list %}
 					  <tr>
 						<td><img src="{{ user.image.url}}"  width="50" height="50" alt="..."></td>        
 						<td> {{ user.username}}</td>
@@ -54,20 +56,48 @@
 						<td> {{ user.worked_date}} </td>
 						<td>
 							
-							<a href="{% url 'profile-update' user.pk %}" ><i class='far fa-eye' style='font-size:24px'></i></a>
-							<a class="p-2 text-danger" href="{% url 'profile-delete' user.pk %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
+							<a href="{% url 'profile-update' user.pk %}" class="btn btn-primary"><i class='far fa-eye' style='font-size:24px'></i></a>
+							<a class="btn btn-danger" href="{% url 'profile-delete' user.pk %}" ><i class='fa-solid fa-trash-can' style='font-size:24px'></i></a>
 						
 						</td>
 
 					  </tr>
 					  {% endfor %}
 					</tbody>
-					
 				</table>
+			</div>
 
-            </div>
+			
+<!-- Paginator-->
+			<div class="container-fluid mt-1">
+				<div class="row">
+					<div class="col-md-12">
+						
+						<nav aria-label="Page navigation example">
+							<p>Page {{page.number}}/{{page.paginator.num_pages}} </p>
 
-        </div>
+							<ul class="pagination">
+							  <li class="page-item"> {% if page.has_previous%} <a class="page-link" href="{% url 'home'%}?page={{ page.previous_page_number }}">Previous</a> {% endif %} </li>
+							  
+							{% for num_page in page.paginator.page_range %}
+							
+							{% if page.number == num_page %}
+								<li class="page-item"><a class="page-link" href="{% url 'home'%}?page={{ num_page }}">{{ num_page }}</a></li>
+							{% else %}
+								<li class="page-item"><a class="page-link" href="{% url 'home'%}?page={{ num_page }}">{{ num_page }}</a></li>
+							{% endif %}
+
+							{% endfor %}
+
+							  <li class="page-item">{% if page.has_next%} <a class="page-link" href="{% url 'home'%}?page={{ page.next_page_number }}">Next</a>{% endif %} </li>
+							</ul>
+
+						  </nav>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
 		<!-- 
 		{% for user in profile %}
@@ -101,7 +131,8 @@
 			{% endfor %}
 		-->
 		
-    </div>
+	</div>
 </div>
 
 {% endblock content %}
+

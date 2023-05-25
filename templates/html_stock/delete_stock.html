@@ -1,13 +1,38 @@
-{% extends "backend/layout.html" %}
+{% extends 'base/layout.html' %}
+{% block title%} Profile User {% endblock title %}
+{% load crispy_forms_tags %}
 
-{% block title %}  
-
-<title>Add Stock</title>
-
-{% endblock title %}
 
 {% block content %}
 
-<h1 > Hello Add_Stock<h1>
+
+<div class="container-fluid">
+	<div class="row ">
+
+		<div class="col-md-3 ">
+			<div class="card border">
+
+			  <img class="card-img-top" src="{{ item.image.url}}" alt="">
+
+			</div>
+		</div>
+
+		<div class="col-md-4 ">
+			<div class="border p-3 bg-dark">
+				<form method="post" enctype="multipart/form-data" >
+					<div class="card mb-3">
+						<div class="card-body text-center">
+						<h4 class="card-text"> ต้องการลบ {{ item.name }} ออกจากสต๊อก ?</h4>
+						</div>
+					</div>
+						{% csrf_token %}
+						<button type="submit" class="btn btn-danger btn-block text-light">ลบข้อมูล</button>
+				</form>
+		</div>
+	</div>
+</div>
 
 {% endblock content %}
+
+
+

@@ -5,20 +5,7 @@
 {% block content%}
 
 <div class="container-fluid">
-  <div class="row bg-dark">
-
-		<div class="col-md-2 p-3">
-			<a href='/stock'>
-				<div class="card border-success">
-					<div class="card-body">
-					<h4 class="card-title"><i class="fa-solid fa-list"></i></h4>
-					<p class="card-text">คลังสินค้าทั้งหมด</p>
-					</div>
-				</div>
-			</a>
-		</div>
-  </div>
-  
+  {% include 'html_stock/base_stock.html'%}
   <div class="row mt-3">
     <div class="col-md-4">
         <div class="card border">
@@ -27,8 +14,8 @@
             <p class="card-text">{{ item.name }}</p>
             <form action="" method="post"> 
                 {% csrf_token %}
-                {{ form  }}
-                <input type="submit" value="+ เพิ่ม" class="btn btn-success btn-block ">
+                {{ form |crispy }}
+                <input type="submit" value="+ เพิ่มหมวดหมู่สินค้า" class="btn btn-primary btn-block ">
             </form>
             
           </div>

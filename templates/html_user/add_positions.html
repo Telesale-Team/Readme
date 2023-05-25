@@ -56,8 +56,8 @@
 						<tr>
 							<td> {{ positions.name }} </td>
 							<td>
-								<a href="{% url 'position-update' positions.id%}"><i class='far fa-eye' style='font-size:24px'></i></a>
-								<a href="{% url 'position-delete' positions.id%}"><i class="fas fa-trash-alt" style='font-size:24px;color:red;'></i> </a>
+								<a href="{% url 'position-update' positions.id%}" class= "btn btn-primary"><i class='far fa-eye' style='font-size:24px'></i></a>
+								<a href="{% url 'position-delete' positions.id%}" class = "btn btn-danger"><i class="fas fa-trash-alt" style='font-size:24px'></i> </a>
 							</td>
 
 						</tr>

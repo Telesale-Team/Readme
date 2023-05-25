@@ -2,10 +2,10 @@ from django.urls import path,include
 from app_user.views import *
 
 urlpatterns = [
-	path('',Dashboard),
-	path('position/<str:position>',PositionGroup,name='search-position'),
+	path('',Dashboard,name="home"),
  
-	path('category/<slug:position_slug>',Dashboard),
+ 
+	path('position/<str:position>',PositionGroup,name='search-position'),
    	path('report_user/',Report_user),
 
 

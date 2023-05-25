@@ -9,37 +9,30 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .filters import *
 from django.contrib.auth.models import User
-
+from django.core.paginator import Paginator
 # Create your views here.
 
 @login_required(login_url='/')
-def Dashboard (request,position_slug=None):
+def Dashboard (request):
+	profile = ProfileUser.objects.all()
+	alluser = profile.count
 	
-	profileCheck = ProfileUser.objects.all().filter(image_check=False)
+	page = Paginator(profile,5)
+	page_list = request.GET.get("page")
+	page = page.get_page(page_list)
  
 	user_filter = ProfileFilter(request.GET,queryset=ProfileUser.objects.all())
-	
 	filter = user_filter.form
 	user = user_filter.qs
- 
-	if position_slug != None:
-		profile = ProfileUser.objects.all()
-		
-	else:
-		profile = ProfileUser.objects.all().filter(image_check=False)
-		
 
-	profile_unit = list(profile)
-	total = len(profile_unit)
 	
 	context = {
 
-		"profile_unit":len(profile_unit),
-		"profile":profile,
-		"total":total,
-		"profileCheck":profileCheck,
 		"filter": filter,
 		"user":user,
+		"alluser":alluser,
+		"page" : page,
+  
 	
 	}
 	return render (request,'html_user/dashboard_user.html',context)
@@ -226,7 +219,7 @@ def Add_Skill (request ):
 		form = SkillForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("/user")
+			return redirect("/user/add_skill/")
 	else:
 		form = SkillForm()
 		

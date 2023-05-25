@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
 from django.utils import timezone
 from app_kpi.models import *
@@ -15,68 +15,72 @@ from .filters import *
 # Create your views here.
 @login_required(login_url="/")
 def dashboard (request):
-    
 
-	cable = Cable.objects.all()
-	office = Office.objects.all()
-	category = Category.objects.all()
- 
-	filter_notebook = NotebookFilter(request.GET,queryset=Cable.objects.all())
-	filter = filter_notebook.form
-	notebook = filter_notebook.qs
+	filter_item = StockFilter(request.GET,queryset=Stock.objects.all())
+	filter = filter_item.form
+	item = filter_item.qs
+	
 	
 	if request.method == "POST":
-		form = CableForm(request.POST)
+		form = StockForm(request.POST)
 		if form.is_valid():
 			form.save()
 			return redirect("/stock")
 	else:
-		form = CableForm()
+		form = StockForm()
 
 	
 	context = {
 
-		"cable" : cable,
 		"form"	:form,
-  		"office" : office,
-		"category" : category,
 		"filter":filter,
-		"notebook":notebook,
+		"item":item,
   
 
 	}
 	return render(request,'html_stock/stock.html',context)
 
 @login_required(login_url="/")
-def Add_stock(request):
+def Update_Stock (request,pk ):
 	
-	
-	filternotebook = NotebookFilter(request.GET,queryset=Notebook.objects.all())
-	filter = filternotebook.form
-	notebook = filternotebook.queryset
-	
-	
-	items = Stock.objects.all()
-	qutity_item = len(items)
- 
+
+	item = get_object_or_404(Stock, pk=pk)
+
 	if request.method == "POST":
-		form = ItemFrom(request.POST)
+		form = StockForm(request.POST,request.FILES,instance=item)
 		if form.is_valid():
 			form.save()
 			return redirect("/stock")
 	else:
-		form = ItemFrom()
-
+		form = StockForm(instance=item)
+		
+		
 	context = {
-		"items" : items,
-		"form" : form,
-		"qutity_item":qutity_item,
-		"filter":filter,
-		"notebook":notebook,
 
+		"item":item,
+		"form": form,
 	}
-	return render (request,'html_stock/add_Stock.html',context)
- 
+
+	return render (request,'html_stock/update_stock.html',context)
+
+@login_required(login_url="/")
+def Delete_Stock (request,pk ):
+	
+
+	item = get_object_or_404(Stock, pk=pk)
+
+
+	if request.method == "POST":
+
+		item.delete()
+		return redirect("/stock")
+	else:
+		return render (request,'html_stock/delete_stock.html',{'item':item})
+
+	
+
+	
+
 @login_required(login_url="/")
 def Add_Category(request):
 
@@ -96,105 +100,3 @@ def Add_Category(request):
    
 	return render (request,'html_stock/add_Category.html',context)
 
-@login_required(login_url="/")
-def Add_Item(request):
-	
-	items = Item.objects.all()
-	if request.method == "POST":
-		form = ItemFrom(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect("/stock")
-	else:
-		form = ItemFrom()
-
-	context = {
-		"items" : items,
-		"form" : form,
-	}    
-	
-	return render (request,'html_stock/add_Item.html',context)
-
-@login_required(login_url="/")
-def Add_Cable (request):
-	
-	cable = Cable.objects.all()
-	if request.method == "POST":
-		form = CableForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect("add-cable")
-	else:
-		form = CableForm()
-
-	context = {
-		"cable" : cable,
-		"form" : form,
-	}    
-	
-	return render (request,'html_stock/add_cable.html',context)
-
-@login_required(login_url="/")
-def Add_Notebook (request):
-	
-
-	filternotebook = NotebookFilter(request.GET,queryset=Notebook.objects.all())
-	filter = filternotebook.form
-	notebook = filternotebook.queryset
- 
-	if request.method == "POST":
-		form = NotebookForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect("/stock/add_stock/add_notebook")
-	else:
-		form = NotebookForm()
-
-	context = {
-		"form" : form,
- 		"filter":filter,
-		"notebook":notebook,
-		
-	}    
-	
-	return render (request,'html_stock/add_notebook.html',context)
-
-@login_required(login_url="/")
-def Add_Office (request):
-	
-	office = Office.objects.all()
-	if request.method == "POST":
-		form = OfficeForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect("/stock")
-	else:
-		form = OfficeForm()
-
-	context = {
-		"office" : office,
-		"form" : form,
-	}    
-	
-	return render (request,'html_stock/add_office.html',context)
-
-@login_required(login_url="/")
-def Pickup (request,id):
-
-	items = Notebook.objects.get(id=id)
-	
-	if request.method == "POST":
-		form = NotebookForm(request.POST,instance=items)
-		if form.is_valid():
-			form.save()
-			return redirect("add_notebook")
-	else:
-		form = NotebookForm(instance=items)
-		
-		
-	context = {
-		"items":items,
-		"form": form,
-	}
-	
-	return render (request,'html_stock/pickup_notebook.html',context)

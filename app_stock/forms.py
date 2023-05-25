@@ -1,7 +1,13 @@
 from django import forms
 from .models import *
+from django.core.validators import RegexValidator
 
 class StockForm(forms.ModelForm):
+    name = forms.CharField(
+        label='ชื่อสินค้า',min_length=3, max_length=50, required=True,
+        widget=forms.TextInput(attrs={'placeholder':'เช่น Lenovo Ideapad 3... '})
+        )
+    
     class Meta:
 
         model = Stock
@@ -17,32 +23,5 @@ class CategoryForm(forms.ModelForm):
         fields = '__all__'
         
         
-class ItemFrom(forms.ModelForm):
 
-    class Meta:
-
-        model = Notebook
-        fields = '__all__'
-
-
-class CableForm(forms.ModelForm):
-
-    class Meta:
-
-        model = Cable
-        fields = '__all__'
-        
-class NotebookForm(forms.ModelForm):
-
-    class Meta:
-
-        model = Notebook
-        fields = '__all__'
-        
-        
-class OfficeForm(forms.ModelForm):
-    class Meta:
-
-        model = Office
-        fields = '__all__'
         
