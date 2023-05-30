@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'app_money',
     'app_custom',
     'app_login',
+    'app_sale',
     
   
    

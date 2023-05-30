@@ -1,0 +1,85 @@
+{% extends "base/layout.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content%}
+
+	<div class="container-fluid">
+		<div class="row">
+			
+			<!-- Form -->
+			<div class="col-md-3 bg-dark p-3 mt-1">
+				<div class="card-border  text-light">
+					<form method="POST">
+
+						<h4>เพิ่มข้อมูลลูกค้า</h4>
+						{% csrf_token %}
+						{{ form_index|crispy }}
+		
+						<input type="submit" value="บันทึกข้อมูล" class="btn btn-success ">
+						
+					</form>
+				</div>
+			</div>
+
+            <div class="col-md-9 p-1  ">
+	
+                <table class="table table-striped ">
+            
+                    <thead class=" text-light bg-dark">
+                        <tr>
+                            <th> ชื่อลูกค้า </th>
+                            <th> เพศ </th>
+                            <th> ช่วงอายุ </th>
+                            <th> ซื้อ/ไม่ซื้อ </th>
+                            <th> ติดต่อลูกค้า </th>        
+                            <th> ความสนใจ </th>        
+                            <th> ที่มา </th>
+                            <th> ผู้ลงทะเบียน </th>
+                            <th> จำนวน </th>
+                            <th> หน่วย </th>
+                            <th> วันลงทะเบียน </th>
+                            <th> แก้ใข </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for user in page.object_list %}
+
+    
+    
+                            <tr>
+                                <td> {{ user.name}}</td>
+                                <td> {{ user.sex}}</td>
+                                <td> {{ user.age }}</td> 
+                                <td> {{ user.buy}} </td>
+                                <td> {{ user.contact}} </td>
+                                <td> {{ user.interest}} </td>
+                                <td> {{ user.sources |truncatechars_html:10}} </td>
+                                <td> {{ user.user_account }} </td>
+                                <td> {{ user.quatity }} </td>
+                                <td> {{ user.unit }} </td>
+                                <td> {{ user.create_date}} </td>
+                                <td>
+                                    
+                                    <a href="{% url 'customer-view' user.name %}" class="btn btn-success"><i class="bi bi-database" style='font-size:22px'></i></i></a>
+                                    <a href="{% url 'customer-update' user.pk %}" class="btn btn-warning"><i class="bi bi-pencil" style='font-size:22px' ></i></a>
+    
+                                </td>
+            
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+	
+
+
+
+
+
+{% endblock content%}

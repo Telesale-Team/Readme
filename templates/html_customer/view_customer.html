@@ -1,0 +1,29 @@
+{% extends "base/layout.html" %}
+{% block title %}Add_customer{% endblock title %}
+
+
+
+
+{% block content %}
+
+<div class="row">
+	{%for customer in customer %}
+	<div class="col-md-3">
+		<div class="card border-primary p-2 bg-dark text-light">
+
+		  <div class="card-body">
+			<h4 class="card-title">{{ customer.name }}</h4>
+			<p class="card-text">สนใจ :{{ customer.interest }}</p>
+			<p>ซื้อ :{{ customer.quatity }} {{ customer.unit}}<hr>
+			<p>ผู้ลงทะเบียน :{{ customer.user_account.nickname }} </p><hr>
+			<p>รหัสพนังาน :{{ customer.user_account }}</p>
+			<p>ที่มา :{{ customer.sources }}</p><hr>
+			<p>วันที่สมัครสมาชิก :{{ customer.create_date }}<hr>
+		  </div>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+
+{% endblock content%}

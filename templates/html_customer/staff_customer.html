@@ -1,0 +1,225 @@
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="container-fluid">
+	<div class="row">
+		<!-- display -->
+		<div class="col-md-12 bg-dark text-light mt-1">
+			<div class="card bg-dark ">
+			<div class="card-body">
+				<div class="row ">
+					<div class="col-md-2 p-2">
+						<a href="{% url 'user-home'%}">
+							<div class="card border bg-success ">
+								<div class="card-body text-light text-center">
+									<h4 class="card-title">{{ customer_all }}</h4>
+									<p class="card-text">ลูกค้าทั้งหมด</p>
+								</div>
+							</div>
+						</a> 
+						
+					</div>
+	
+					<div class="col-md-2 p-2">
+	
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-light text-center">
+								<h4 class="card-title">{{ interest_huay_count }}</h4>
+								<p class="card-text">สนใจหวย</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+					<div class="col-md-2 p-2">
+	
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-light text-center">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจมวย</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+
+					<div class="col-md-2 p-2">
+	
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-light text-center">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจบอล</p>
+							</div>
+							</a> 
+						</div>
+
+					</div>
+
+					<div class="col-md-2 p-2">
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-light text-center">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจสล็อต</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+
+					<div class="col-md-2 p-2">
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-center text-light">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจสลาก</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+
+					<div class="col-md-2 p-2">
+						<div class="card border bg-info text-light">
+							<a href="#">
+							<div class="card-body text-center text-light">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจสลาก</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+
+					<div class="col-md-2 p-2">
+						<div class="card border bg-info text-light ">
+							<a href="#">
+							<div class="card-body text-center text-light">
+								<h4 class="card-title">{{ alluser }}</h4>
+								<p class="card-text">สนใจเกมส์</p>
+							</div>
+							</a> 
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			</div> 
+		</div>
+
+		<!-- filter-->
+		<div class="col-md-12 p-2 bg-dark text-light mt-1">
+			<div class="card  bg-dark ">
+	
+				<div class="card-body">
+					<h4>ค้นหาข้อมูล {{user.profileuser.nickname}} </h4>
+					<form method="GET" action="#">
+					{% csrf_token %}
+					{{ filter }}
+						<button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
+						<a class = "btn btn-secondary"href="{% url 'customer-home' %}"> ล้างการค้นหา </a>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- form-->
+		<div class="col-md-3 bg-dark p-3 mt-1">
+			<div class="card-border  text-light">
+				<form action="{% url 'customer-staff'%}" method="post">
+					<h4>เพิ่มข้อมูลลูกค้า {{user.profileuser.team}} </h4>
+					{% csrf_token %}
+					{{ form|crispy }}
+	
+					<input type="submit" value="บันทึกข้อมูล" class="btn btn-success ">
+					<a type="reset" class = "btn btn-secondary"href="{% url 'customer-home' %}"> ยกเลิก </a>
+				</form>
+			</div>
+		</div>
+		<!-- Table Display -->
+		<div class="col-md-9 p-1  ">
+	
+			<table class="table table-striped ">
+		
+				<thead class=" text-light bg-dark">
+					<tr>
+						<th> ชื่อลูกค้า </th>
+						<th> เพศ </th>
+						<th> ช่วงอายุ </th>
+						<th> ซื้อ/ไม่ซื้อ </th>
+						<th> ติดต่อลูกค้า </th>        
+						<th> ความสนใจ </th>        
+						<th> ที่มา </th>
+						<th> ผู้ลงทะเบียน </th>
+						<th> จำนวน </th>
+						<th> หน่วย </th>
+						<th> วันลงทะเบียน </th>
+						<th> แก้ใข </th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					{% for user in page.object_list %}
+					{% if user.user_account.username == request.user %}
+
+
+						<tr>
+							<td> {{ user.name}}</td>
+							<td> {{ user.sex}}</td>
+							<td> {{ user.age }}</td> 
+							<td> {{ user.buy}} </td>
+							<td> {{ user.contact}} </td>
+							<td> {{ user.interest}} </td>
+							<td> {{ user.sources |truncatechars_html:10}} </td>
+							<td> {{ user.user_account }} </td>
+							<td> {{ user.quatity }} </td>
+							<td> {{ user.unit }} </td>
+							<td> {{ user.create_date}} </td>
+							<td>
+								
+								<a href="{% url 'customer-view' user.name %}" class="btn btn-success"><i class="bi bi-database" style='font-size:22px'></i></i></a>
+								<a href="{% url 'customer-update' user.pk %}" class="btn btn-warning"><i class="bi bi-pencil" style='font-size:22px' ></i></a>
+
+							</td>
+		
+						</tr>
+					{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+			<!-- Paginator -->
+			<div class="container-fluid mt-1">
+				<div class="row">
+					<div class="col-md-12 p-2">
+						
+						<nav aria-label="Page navigation example">
+							<p>Page {{page.number}}/{{page.paginator.num_pages}} </p>
+	
+							<ul class="pagination">
+								<li class="page-item"> {% if page.has_previous%} <a class="page-link" href="{% url 'customer-home'%}?page={{ page.previous_page_number }}">Previous</a> {% endif %} </li>
+								
+							{% for num_page in page.paginator.page_range %}
+							
+							{% if page.number == num_page %}
+								<li class="page-item"><a class="page-link" href="{% url 'customer-home'%}?page={{ num_page }}">{{ num_page }}</a></li>
+							{% else %}
+								<li class="page-item"><a class="page-link" href="{% url 'customer-home'%}?page={{ num_page }}">{{ num_page }}</a></li>
+							{% endif %}
+	
+							{% endfor %}
+	
+								<li class="page-item">{% if page.has_next%} <a class="page-link" href="{% url 'customer-home'%}?page={{ page.next_page_number }}">Next</a>{% endif %} </li>
+							</ul>
+	
+							</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	</div>
+</div>
+
+
+{% endblock content%}

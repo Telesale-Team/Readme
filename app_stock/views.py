@@ -1,15 +1,11 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils import timezone
-from app_kpi.models import *
-from app_team.models import *
-from app_stock.models import *
-from app_custom.models import *
-from app_money.models import *
-from django.contrib.auth.decorators import login_required
+from .models import *
 from .forms import *
 from .filters import *
-
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -17,28 +13,33 @@ from .filters import *
 def dashboard (request):
 
 	filter_item = StockFilter(request.GET,queryset=Stock.objects.all())
-	filter = filter_item.form
-	item = filter_item.qs
-	
-	
+	filter_stock = filter_item.form
+	item_stock = filter_item.qs
+		
 	if request.method == "POST":
-		form = StockForm(request.POST)
-		if form.is_valid():
-			form.save()
+		form_stock = StockForm(request.POST)
+		if form_stock.is_valid():
+			form_stock.save()
 			return redirect("/stock")
 	else:
-		form = StockForm()
+		form_stock = StockForm()
 
+	#Paginator
+	page = Paginator(item_stock,10)
+	page_list = request.GET.get("page")
+	page_stock = page.get_page(page_list)
 	
 	context = {
 
-		"form"	:form,
-		"filter":filter,
-		"item":item,
+		"form_stock":form_stock,
+		"filter_stock":filter_stock,
+		"item_stock":item_stock,
+		"page_stock":page_stock,
   
 
 	}
 	return render(request,'html_stock/stock.html',context)
+
 
 @login_required(login_url="/")
 def Update_Stock (request,pk ):
@@ -47,28 +48,29 @@ def Update_Stock (request,pk ):
 	item = get_object_or_404(Stock, pk=pk)
 
 	if request.method == "POST":
-		form = StockForm(request.POST,request.FILES,instance=item)
-		if form.is_valid():
-			form.save()
+		form_update_stock = Update_Stock_Form(request.POST,request.FILES,instance=item)
+		if form_update_stock.is_valid():
+			form_update_stock.save()
 			return redirect("/stock")
 	else:
-		form = StockForm(instance=item)
+		form_update_stock = Update_Stock_Form(instance=item)
 		
 		
 	context = {
 
 		"item":item,
-		"form": form,
+		"form_update_stock": form_update_stock,
 	}
 
 	return render (request,'html_stock/update_stock.html',context)
+
+
 
 @login_required(login_url="/")
 def Delete_Stock (request,pk ):
 	
 
 	item = get_object_or_404(Stock, pk=pk)
-
 
 	if request.method == "POST":
 
@@ -77,9 +79,7 @@ def Delete_Stock (request,pk ):
 	else:
 		return render (request,'html_stock/delete_stock.html',{'item':item})
 
-	
 
-	
 
 @login_required(login_url="/")
 def Add_Category(request):

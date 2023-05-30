@@ -13,8 +13,16 @@ class StockForm(forms.ModelForm):
         model = Stock
         fields = '__all__'
         
+
+class Update_Stock_Form(forms.ModelForm):
+
+    class Meta:
+
+        model = Stock
+        fields = '__all__'
         
-        
+
+
 class CategoryForm(forms.ModelForm):
 
     class Meta:

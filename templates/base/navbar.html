@@ -1,13 +1,25 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
   
-	<h5 class="my-0 mr-md-auto font-weight-normal text-light"><img src="{{user.profileuser.image.url}} " width="40" height="40"class="rounded-circle" ></h5>
+	<h5 class="my-0 mr-md-auto font-weight-normal text-light"><img src="#" width="40" height="40"class="rounded-circle" ></h5>
 	
+	
+	
+	<nav class="my-2 my-md-0 mr-md-3">
+		
+		<a href ="/dashboard/"><i class="bi bi-speedometer"></i>หน้าหลัก</a>	
+		<a href="/user/"><i class="bi bi-people"></i>บุคคล</a>
+		<a href="/stock/"><i class="bi bi-cart2"></i>สต๊อก</a>
+		<a href="/money/"><i class="bi bi-coin"></i>บัญชี</a>
+		<a href="{% url 'sale-home'%}"><i class="bi bi-coin"></i>การตลาด</a>
+
+		<a href='#'><i class="bi bi-question-square"></i>แจ้งปัญหา</a>
+	</nav>
   
+
+
 	<nav class="my-2 my-md-0 mr-md-3">	
-			
-		<a href="#"><i class='fas fa-user-cog' style='font-size:24px'></i></a>
-		<a href="/user"><i class='fas fa-align-justify' style='font-size:24px'></i></a>
-		<a class="p-2 text-secondary" href="/logout"><i class='fas fa-share-square' style='font-size:24px'></i></a>
+		
+		<a href="/logout"><i class="bi bi-box-arrow-right"></i></a>
 	</nav>
 	
   

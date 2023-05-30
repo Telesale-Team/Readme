@@ -8,8 +8,6 @@ from django.contrib.auth.models import User
 
 class Positions (models.Model):
     name = models.CharField('ตำแหน่งงาน',max_length=255,unique=True)
-    slug = models.SlugField(null=True,unique=True)
-    
     class Meta:
         ordering = ["-id"]
         verbose_name_plural = "Create Position"
@@ -45,17 +43,27 @@ class Team (models.Model):
 
 class ProfileUser(models.Model):
     
-    username = models.OneToOneField(User,on_delete=models.CASCADE) # ชื่อพนักงาน  
+    username = models.OneToOneField(User,on_delete=models.CASCADE) # ชื่อพนักงาน
+    image_profile = models.ImageField('รูปภาพโปรไฟล์',upload_to='image_profile',null=True,blank=True,default='default.png')#รูปภาพโปรไฟล์
+    
     nickname = models.CharField('ชื่อพนักงาน',max_length=20,blank=True)	# ชื่อเล่นพนักงาน
-    address = models.CharField(max_length=255,blank=True,null=True)# ที่อยู่ 
-    phone = models.CharField(max_length=10,blank=True) #  เบอร์โทรศัพท์
-    position = models.ForeignKey(Positions,on_delete=models.CASCADE,blank=True,null=True)
-    team = models.ForeignKey(Team,on_delete=models.CASCADE,blank=True,null=True)
-    MedalType = models.TextChoices("MedalType", "ต่ำกว่า1ปี 1ปี 2ปี มากกว่า3ปี")
-    working_experience = models.CharField(blank=True, choices=MedalType.choices, max_length=10)
-    working_skill = models.ForeignKey(Skill,on_delete=models.CASCADE,blank=True,null=True)
-    worked_date = models.DateField(blank=True,null=True)
-    image = models.ImageField(upload_to='image_profile',null=True,blank=True,default='default.png') #รูปถ่าย
+    address = models.CharField('ที่อยู่',max_length=255,blank=True,null=True)# ที่อยู่ 
+    phone = models.CharField('เบอร์โทรศัพท์',max_length=10,blank=True) #  เบอร์โทรศัพท์
+    image_id_card = models.ImageField('สำเนาบัตรประชาชน',upload_to='image_id_card',null=True,blank=True,default='default.png')#สำเนาบัตรประชาชน
+    
+    bank_id = models.IntegerField('หมายเลขบัญชีธนาคาร',blank=True,null=True)#หมายเลขบัญชีธนาคาร
+    image_bank = models.ImageField('สำเนาบัญชีธนาคาร',upload_to='image_bank',null=True,blank=True,default='default.png') #สำเนาบัญชีธนาคาร
+    
+    team = models.ForeignKey(Team,on_delete=models.CASCADE,blank=True,null=True)#ฝาย
+    position = models.ForeignKey(Positions,on_delete=models.CASCADE,blank=True,null=True)#ตำแหน่งงาน
+
+    
+    MedalType = models.TextChoices("MedalType", "น้อยกว่า1 1ปี 2ปี มากกว่า3ปี")
+    working_experience = models.CharField('ประสบการณ์ทำงาน',blank=True, choices=MedalType.choices, max_length=10)#ประสบการณ์ทำงาน
+    
+    working_skill = models.ForeignKey(Skill,on_delete=models.CASCADE,blank=True,null=True)#ทักษะการทำงาน
+    worked_date = models.DateTimeField('วันเริ่มงาน',auto_now_add=True,blank=True,null=True)#วันเริ่มงาน
+    
     image_check = models.BooleanField(default=False)
 
 

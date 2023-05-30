@@ -1,41 +1,50 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from app_user.models import *
-from .forms import *
+
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+
+from .forms import *
 from .models import *
 from .filters import *
-from django.contrib.auth.models import User
+
 from django.core.paginator import Paginator
-# Create your views here.
 
-@login_required(login_url='/')
+
+
+@login_required(login_url='')
 def Dashboard (request):
-	profile = ProfileUser.objects.all()
-	alluser = profile.count
-	
-	page = Paginator(profile,5)
-	page_list = request.GET.get("page")
-	page = page.get_page(page_list)
- 
+    
 	user_filter = ProfileFilter(request.GET,queryset=ProfileUser.objects.all())
-	filter = user_filter.form
+	filter_user = user_filter.form
 	user = user_filter.qs
-
-	
+	all_unit = user.count()
+	if request.method == "POST":
+		form_user = ProfileForm(request.POST)
+		if form_user.is_valid():
+			form_user.save()
+			return redirect("home-user")
+	else:
+		form_user = ProfileForm()
+ 	
+	page = Paginator(user,10)
+	page_list = request.GET.get("page")
+	page_user = page.get_page(page_list)
+  
+  
 	context = {
 
-		"filter": filter,
-		"user":user,
-		"alluser":alluser,
-		"page" : page,
-  
-	
+		"filter_user": filter_user,
+		"page_user" : page_user,
+		"form_user":form_user,
+		"all_unit" : all_unit,
+
 	}
+ 
 	return render (request,'html_user/dashboard_user.html',context)
+
+
 
 @login_required(login_url="/")
 def Profile (request,pk ):

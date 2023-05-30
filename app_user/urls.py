@@ -2,7 +2,7 @@ from django.urls import path,include
 from app_user.views import *
 
 urlpatterns = [
-	path('',Dashboard,name="home"),
+	path('',Dashboard,name="home-user"),
  
  
 	path('position/<str:position>',PositionGroup,name='search-position'),

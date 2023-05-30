@@ -30,6 +30,7 @@ urlpatterns = [
 	path('stock/', include('app_stock.urls')),
 	path('money/', include('app_money.urls')),
 	path('customer/', include('app_custom.urls')),
+	path('sale/', include('app_sale.urls')),
 	path('register/',register,name='register'),
 	path('', auth_views.LoginView.as_view(template_name='html_login/login.html')),
 	path('logout/', auth_views.LogoutView.as_view(template_name='html_login/logout.html')),

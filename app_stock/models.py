@@ -24,15 +24,15 @@ class Stock (models.Model):
     detail = models.TextField('อุปกรณ์เสริม',max_length=255,null=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
     user_account = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    date = models.DateField('วันที่',)
+    date = models.DateTimeField('วันที่',auto_now_add=True,null=True,blank=True)
     
     class Meta:
 
-        verbose_name_plural = "Create Cable"
+        verbose_name_plural = "Stock"
         verbose_name = "Item"
 
     def __str__(self):
-        return f'{self.name} by {self.user_account}'
+        return self.name
     
 
 #การใช้งาน Choices Modals
