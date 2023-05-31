@@ -6,11 +6,12 @@ class StockFilter(django_filters.FilterSet):
     class Meta:
         model = Stock
         fields = {
-                'user_account':['exact'],
+
                 'serial':['icontains'],
                 'name':['icontains'],
                 'detail':['icontains'],
                 'category':['exact'],
+                'user_account':['exact'],
                 
                   }
 

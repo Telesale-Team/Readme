@@ -11,6 +11,8 @@ from django.core.paginator import Paginator
 @login_required(login_url="/")
 def Index (request):
 	sale = Sale.objects.all()
+	count_all=sale.count()
+	
 	
 	#Form
 	if request.method == "POST":
@@ -23,19 +25,28 @@ def Index (request):
 	
 	#Filter
 	filter = SaleFilter(request.GET,queryset=Sale.objects.all())
-	filter_stock = filter.form
-	query_stock = filter.qs
+	filter_sale = filter.form
+	query_sale = filter.qs
 	
  
 	#Paginator
-	page = Paginator(sale,10)
+	page = Paginator(query_sale,20)
 	page_list = request.GET.get("page")
 	page_sale = page.get_page(page_list)
 	context = {
 
 		"form_sale":form_sale,
-		"query_stock":query_stock,
+		"filter_sale":filter_sale,
 		"page_sale":page_sale,
+		"count_all":count_all,
+		"count_thaibarn":Sale.objects.all().filter(interest=1).count(),
+		"count_huay_online":Sale.objects.all().filter(interest=2).count(),
+		"count_huay_football":Sale.objects.all().filter(interest=6).count(),
+		"count_huay_casino":Sale.objects.all().filter(interest=5).count(),
+  		"count_huay_bacara":Sale.objects.all().filter(interest=4).count(),
+		"count_huay_slot":Sale.objects.all().filter(interest=3).count(),
+		"buy":Sale.objects.all().filter(buy="ซื้อ").count(),
+  		"nobuy":Sale.objects.all().filter(buy="ยังไม่ซื้อ").count(),
 	}
   
   

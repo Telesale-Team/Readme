@@ -19,8 +19,8 @@
 				{% csrf_token %}
 				{{ filter_stock }}
 					<button type="submit" class="btn btn-primary">ค้นหา</button>
-					<a class="btn btn-secondary " href="{% url 'stock'%}"> รีเฟรส </a>
-					<a class="btn btn-success " href="{% url 'add_Category'%}"> เพิ่มหมวดหมู่สินค้า </a>
+					<a class="btn btn-secondary " href="{% url 'stock'%}"> รีเซ็ตการค้นหา </a><hr>
+					<a class="btn btn-danger " href="{% url 'add_Category'%}"> เพิ่มหมวดหมู่สินค้า </a>
 				</form>
 					
 			  </div>
@@ -84,7 +84,7 @@
 					</thead>
 					
 					<tbody>
-					  {% for item in item_stock %}
+					  {% for item in page_stock %}
 					  <tr>
 
 						<td> {{ item.serial }}</td>

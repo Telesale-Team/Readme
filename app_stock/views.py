@@ -29,12 +29,23 @@ def dashboard (request):
 	page_list = request.GET.get("page")
 	page_stock = page.get_page(page_list)
 	
+	item_count_all = Stock.objects.all().count()
+	item_count_computer = Stock.objects.all().filter(category='8').count()
+	item_count_cable = Stock.objects.all().filter(category='9').count()
+	item_count_office = Stock.objects.all().filter(category='10').count()
+	item_count_telephone = Stock.objects.all().filter(category='11').count()
 	context = {
 
 		"form_stock":form_stock,
 		"filter_stock":filter_stock,
 		"item_stock":item_stock,
 		"page_stock":page_stock,
+		"item_count_all":item_count_all,
+		"item_count_computer":item_count_computer,
+		"item_count_cable":item_count_cable,
+		"item_count_office":item_count_office,
+		"item_count_telephone":item_count_telephone,
+
   
 
 	}

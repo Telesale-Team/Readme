@@ -5,5 +5,9 @@ class SaleFilter(django_filters.FilterSet):
 
     class Meta:
         model = Sale
-        fields = "__all__"
-
+        fields = {
+            "name":['icontains'],
+            "interest":['exact'],
+            "sex":['exact'],
+            "buy":['exact'],
+    }

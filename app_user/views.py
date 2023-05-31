@@ -31,7 +31,17 @@ def Dashboard (request):
 	page = Paginator(user,10)
 	page_list = request.GET.get("page")
 	page_user = page.get_page(page_list)
-  
+	
+	count_all = ProfileUser.objects.all().count()
+	enterterment = ProfileUser.objects.all().filter(position='8').count()
+	telesale = ProfileUser.objects.all().filter(position='7').count()
+	personal = ProfileUser.objects.all().filter(position='6').count()
+	stock = ProfileUser.objects.all().filter(position='5').count()
+	account = ProfileUser.objects.all().filter(position='4').count()
+	live = ProfileUser.objects.all().filter(position='3').count()
+	ads = ProfileUser.objects.all().filter(position='2').count()
+	graphic = ProfileUser.objects.all().filter(position='1').count()
+	seo = ProfileUser.objects.all().filter(position='9').count()
   
 	context = {
 
@@ -39,6 +49,17 @@ def Dashboard (request):
 		"page_user" : page_user,
 		"form_user":form_user,
 		"all_unit" : all_unit,
+		"count_all":count_all,
+		"enterterment":enterterment,
+		"telesale":telesale,
+		"personal":personal,
+		"stock":stock,
+		"account":account,
+		"live":live,
+		"ads":ads,
+		"graphic":graphic,
+		"seo":seo,
+
 
 	}
  

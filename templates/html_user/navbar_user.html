@@ -4,8 +4,8 @@
         <a href="#">
             <div class="card border-primary bg-success text-light">
                 <div class="card-body">
-                    <h4 class="card-title">{{ all_unit }}</h4>
-                    <p class="card-text">ผู้ใช้งานระบบทั้งหมด</p>
+                    <h4 class="card-title">{{ count_all }}</h4>
+                    <p class="card-text">พนักงานทั้งหมด</p>
                 </div>
             </div>
         </a>      
@@ -15,8 +15,8 @@
       <a href="#">
         <div class="card border-success bg-secondary text-light">
             <div class="card-body">
-                <h4 class="card-title">5</h4>
-                <p class="card-text">การตลาด</p>
+                <h4 class="card-title">{{ telesale }}</h4>
+                <p class="card-text">ตำแหน่ง เทเลเซลล์</p>
             </div>
         </div>
         </a>
@@ -26,8 +26,8 @@
         <a href="#">
             <div class="card border-success bg-secondary text-light">
                 <div class="card-body">
-                    <h4 class="card-title">20</h4>
-                    <p class="card-text">บัญชี</p>
+                    <h4 class="card-title">{{ personal }}</h4>
+                    <p class="card-text">ตำแหน่ง บุคคล</p>
                 </div>
             </div>
         </a>        
@@ -38,8 +38,8 @@
         <a href="#">
             <div class="card border-success bg-secondary text-light">
                 <div class="card-body">
-                    <h4 class="card-title">3</h4>
-                    <p class="card-text">สต๊อกสินค้า</p>
+                    <h4 class="card-title">{{ enterterment }}</h4>
+                    <p class="card-text">ตำแหน่ง เอนเตอร์เทนเม้นส์</p>
                 </div>
             </div>
           </a>        
@@ -48,8 +48,8 @@
         <a href="#">
             <div class="card border-success bg-secondary text-light">
                 <div class="card-body">
-                    <h4 class="card-title">1</h4>
-                    <p class="card-text">บุคคล</p>
+                    <h4 class="card-title">{{ stock }}</h4>
+                    <p class="card-text">ตำแหน่ง สต๊อกสินค้า</p>
                 </div>
             </div>
           </a>        
@@ -58,12 +58,57 @@
         <a href="#">
             <div class="card border-success bg-secondary text-light">
                 <div class="card-body">
-                    <h4 class="card-title">4</h4>
-                    <p class="card-text">การเงิน</p>
+                    <h4 class="card-title">{{account}}</h4>
+                    <p class="card-text">ตำแหน่ง การเงินและบัญชี</p>
                 </div>
             </div>
           </a>        
     </div>
+
+    <div class="col-md-2 p-2">
+        <a href="#">
+            <div class="card border-success bg-secondary text-light">
+                <div class="card-body">
+                    <h4 class="card-title">{{seo}}</h4>
+                    <p class="card-text">ตำแหน่ง SEO</p>
+                </div>
+            </div>
+          </a>        
+    </div>
+
+    <div class="col-md-2 p-2">
+        <a href="#">
+            <div class="card border-success bg-secondary text-light">
+                <div class="card-body">
+                    <h4 class="card-title">{{live}}</h4>
+                    <p class="card-text">ตำแหน่ง ไลฟ์สด</p>
+                </div>
+            </div>
+          </a>        
+    </div>
+
+    <div class="col-md-2 p-2">
+        <a href="#">
+            <div class="card border-success bg-secondary text-light">
+                <div class="card-body">
+                    <h4 class="card-title">{{ads}}</h4>
+                    <p class="card-text">ตำแหน่ง ยิงแอด</p>
+                </div>
+            </div>
+          </a>        
+    </div>
+
+
+    <div class="col-md-2 p-2">
+        <a href="#">
+            <div class="card border-success bg-secondary text-light">
+                <div class="card-body">
+                    <h4 class="card-title">{{graphic}}</h4>
+                    <p class="card-text">ตำแหน่ง กราฟฟิค</p>
+                </div>
+            </div>
+          </a>        
+        </div>
 
     </div>
 

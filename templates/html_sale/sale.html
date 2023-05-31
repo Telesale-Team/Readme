@@ -9,10 +9,10 @@
 	<div class="row ">
 
 		<div class="col-md-2 p-2">
-			<a href='/stock'>
+			<a href='#'>
 			<div class="card border-success">
-				<div class="card-body bg-success text-light">
-				<h4 class="card-title">40</h4>
+				<div class="card-body bg-info text-light">
+				<h4 class="card-title">{{count_all}}</h4>
 				<p class="card-text">ลูกค้าทั้งหมด</p>
 				</div>
 			</div>
@@ -20,10 +20,32 @@
 		</div>
 
 		<div class="col-md-2 p-2">
-			<a href='/stock'>
+			<a href='#'>
 			<div class="card border-success">
-				<div class="card-body">
-				<h4 class="card-title">40</h4>
+				<div class="card-body bg-success text-light">
+				<h4 class="card-title">{{buy}}</h4>
+				<p class="card-text">สมัครซื้อ</p>
+				</div>
+			</div>
+			</a>  
+		</div>
+
+		<div class="col-md-2 p-2">
+			<a href='#'>
+			<div class="card border-success">
+				<div class="card-body bg-danger text-light">
+				<h4 class="card-title">{{nobuy}}</h4>
+				<p class="card-text">สมัครไม่ซื้อ</p>
+				</div>
+			</div>
+			</a>  
+		</div>
+
+		<div class="col-md-2 p-2">
+			<a href='#'>
+			<div class="card border-success">
+				<div class="card-body bg-secondary text-light">
+				<h4 class="card-title">{{count_thaibarn}}</h4>
 				<p class="card-text">สลากไทบ้าน</p>
 				</div>
 			</div>
@@ -31,10 +53,10 @@
 		</div>
 
 		<div class="col-md-2 p-2">
-			<a href='/stock'>
+			<a href='#'>
 			<div class="card border-success">
-				<div class="card-body">
-				<h4 class="card-title">40</h4>
+				<div class="card-body bg-secondary text-light">
+				<h4 class="card-title">{{count_huay_online}}</h4>
 				<p class="card-text">หวยออนไลน์</p>
 				</div>
 			</div>
@@ -44,8 +66,8 @@
 		<div class="col-md-2 p-2 ">
 		  <a href="#">
 			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title">40</h4>
+			  <div class="card-body bg-secondary text-light">
+				  <h4 class="card-title">{{count_huay_football}}</h4>
 				  <p class="card-text">ฟุตบอล</p>              
 			  </div>
 			  </div>
@@ -55,8 +77,8 @@
 		<div class="col-md-2 p-2 ">
 		  <a href="#">
 			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title">40</h4>
+			  <div class="card-body bg-secondary text-light">
+				  <h4 class="card-title">{{count_huay_casino}}</h4>
 				  <p class="card-text">คาสิโน</p>              
 			  </div>
 			  </div>
@@ -66,8 +88,8 @@
 		<div class="col-md-2 p-2 ">
 		  <a href="#">
 			  <div class="card border-success">
-			  <div class="card-body">
-				  <h4 class="card-title">40</h4>
+			  <div class="card-body bg-secondary text-light">
+				  <h4 class="card-title">{{count_huay_bacara}}</h4>
 				  <p class="card-text">บาคาร่า</p>              
 			  </div>
 			  </div>
@@ -77,12 +99,14 @@
 		<div class="col-md-2 p-2 ">
 			<a href="#">
 				<div class="card border-success">
-				<div class="card-body ">
-					<h4 class="card-title">10</h4>
+				<div class="card-body bg-secondary text-light ">
+					<h4 class="card-title">{{count_huay_slot}}</h4>
 					<p class="card-text">สล็อต</p>
 				</div>
 			</a>
 		</div>
+
+		
 
 
 	</div>
@@ -98,9 +122,9 @@
 			
 			<form method="GET" action="#">
 			{% csrf_token %}
-			{{ filter }}
+			{{ filter_sale }}
 				<button type="submit" class="btn btn-primary">ค้นหา</button>
-				<a class="btn btn-secondary " href="{% url 'sale-home'%}"> รีเฟรส </a>
+				<a class="btn btn-secondary " href="{% url 'sale-home'%}"> รีเซ็ตการค้นหา </a>
 
 			</form>
 				
@@ -157,7 +181,11 @@
 					<td> {{ item.source |truncatechars_html:10}} </td>
 					<td> {{ item.call_back }} </td>
 					<td> {{ item.create_date }}</td>
-					<td> <span class="badge badge-success">อยู่ในคลัง</span></td>
+					{% if item.buy == 'ซื้อ'%}
+					<td> <span class="badge badge-success">ซื้อแล้ว</span></td>
+					{% else%}
+					<td> <span class="badge badge-danger">ยังไม่ซื้อ</span></td>
+					{%endif%}
 					<td>
 						
 						<a href="{% url 'update-stock' item.pk %}"class="btn btn-warning" ><i class="bi bi-pencil"></i></a>
