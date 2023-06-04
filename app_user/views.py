@@ -15,16 +15,19 @@ from django.core.paginator import Paginator
 
 @login_required(login_url='')
 def Dashboard (request):
-    
+	
 	user_filter = ProfileFilter(request.GET,queryset=ProfileUser.objects.all())
 	filter_user = user_filter.form
 	user = user_filter.qs
 	all_unit = user.count()
-	if request.method == "POST":
+	users = ProfileUser.objects.all()
+	if request.method == 'POST':
 		form_user = UserForms(request.POST)
 		if form_user.is_valid():
-			form_user.save()
-			return redirect("home-user")
+			username = form_user.save()
+			ProfileUser.objects.create(username=username)
+			
+			return redirect('/user')  # Redirect to user profile page
 	else:
 		form_user = UserForms()
  	
